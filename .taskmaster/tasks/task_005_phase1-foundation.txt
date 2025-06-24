@@ -1,0 +1,11 @@
+# Task ID: 5
+# Title: Salary Form Interface
+# Status: pending
+# Dependencies: 1, 2
+# Priority: medium
+# Description: Develop the frontend form for users to input salary and last raise date.
+# Details:
+Create a mobile-first form using Next.js and Tailwind CSS. Include fields for salary amount, last raise date, and optional payroll sync. Validate inputs client-side.
+
+# Test Strategy:
+Test form submission and validation. Ensure mobile responsiveness.

@@ -1,0 +1,11 @@
+# Task ID: 8
+# Title: Develop Peer Matching Algorithm
+# Status: pending
+# Dependencies: 4, 7, 5
+# Priority: medium
+# Description: Implement the anonymous peer matching algorithm for the Peer Success Network.
+# Details:
+Use clustering algorithms (e.g., k-means) to match peers based on profiles. Ensure anonymity and data privacy.
+
+# Test Strategy:
+Test matching accuracy with synthetic profiles. Validate anonymity.

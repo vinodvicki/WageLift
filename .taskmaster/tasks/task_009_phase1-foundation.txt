@@ -1,0 +1,11 @@
+# Task ID: 9
+# Title: Integrate Salary Benchmark API
+# Status: pending
+# Dependencies: 3, 5
+# Priority: medium
+# Description: Connect to CareerOneStop or Payscale API to fetch market salary data.
+# Details:
+Use the CareerOneStop Salaries API to fetch wage percentiles by SOC and ZIP code. Store results in PostgreSQL.
+
+# Test Strategy:
+Test API calls and data storage. Verify accuracy of fetched data.

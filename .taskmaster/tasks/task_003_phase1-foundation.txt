@@ -1,0 +1,11 @@
+# Task ID: 3
+# Title: Design PostgreSQL Schema
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Define and implement the database schema for core data models.
+# Details:
+Create tables for User, SalaryEntry, Benchmark, RaiseRequest, and CPI. Use Supabase for PostgreSQL hosting. Define relationships and indexes.
+
+# Test Strategy:
+Test schema by inserting and querying sample data. Verify relationships and constraints.

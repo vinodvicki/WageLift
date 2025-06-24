@@ -1,0 +1,11 @@
+# Task ID: 1
+# Title: Setup Project Repository
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Initialize the project repository with Next.js and FastAPI boilerplate, including Docker configuration and CI/CD setup.
+# Details:
+Use Next.js v14 for the frontend and FastAPI v0.95.0 for the backend. Configure Docker for containerization. Set up GitHub Actions for CI/CD with workflows for testing and deployment to Vercel (frontend) and Railway (backend).
+
+# Test Strategy:
+Verify repository setup by running initial build and test scripts. Ensure Docker containers can be spun up locally.

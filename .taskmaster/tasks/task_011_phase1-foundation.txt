@@ -1,0 +1,11 @@
+# Task ID: 11
+# Title: GPT Prompt Service
+# Status: pending
+# Dependencies: 5, 8
+# Priority: high
+# Description: Implement a service to generate raise requests using GPT-4 Turbo.
+# Details:
+Use OpenAI's GPT-4 Turbo API to generate raise requests. Feed user data into a structured prompt. Return editable HTML content.
+
+# Test Strategy:
+Test prompt generation and output quality. Ensure user data is correctly embedded.

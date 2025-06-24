@@ -1,0 +1,11 @@
+# Task ID: 15
+# Title: Develop Achievement System
+# Status: pending
+# Dependencies: 8, 9
+# Priority: low
+# Description: Implement the community achievement system for peer interactions.
+# Details:
+Define achievement criteria and rewards. Implement tracking and notifications.
+
+# Test Strategy:
+Test achievement triggers and notifications. Validate reward distribution.

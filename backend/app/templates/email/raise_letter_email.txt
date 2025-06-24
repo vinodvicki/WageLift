@@ -1,0 +1,35 @@
+SALARY ADJUSTMENT REQUEST
+{{ "="*50 }}
+
+Dear {{ manager_name }},
+
+{% if custom_message %}
+{{ custom_message }}
+
+{% endif %}
+I hope this message finds you well. {{ user_name }} has prepared a comprehensive salary adjustment request based on current market data and inflation analysis. Please find the detailed letter below.
+
+{{ "-"*50 }}
+LETTER CONTENT
+{{ "-"*50 }}
+
+{{ letter_content }}
+
+{{ "-"*50 }}
+
+{% if include_pdf %}
+📎 PDF ATTACHMENT INCLUDED
+A formal PDF version of this letter is attached for your records and easy printing.
+
+{% endif %}
+This request is backed by comprehensive data analysis including inflation calculations from the U.S. Bureau of Labor Statistics and current market salary benchmarks. {{ user_name }} would appreciate the opportunity to discuss this request at your convenience.
+
+Thank you for your time and consideration.
+
+{{ "="*50 }}
+{{ platform_name }} - AI-Powered Salary Analysis Platform
+Data sourced from U.S. Bureau of Labor Statistics & CareerOneStop API
+Generated on {{ sent_date }}
+
+🚀 WageLift - Empowering fair compensation through data-driven insights
+{{ "="*50 }} 

@@ -1,0 +1,11 @@
+# Task ID: 1
+# Title: Setup Project Repository
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: Initialize the project repository with the required structure, including backend and frontend directories, and configure version control.
+# Details:
+Create a new repository on GitHub/GitLab. Initialize with a README, .gitignore, and directory structure (backend, frontend, docs). Set up branch protection rules and CI/CD workflows.
+
+# Test Strategy:
+Verify repository setup by cloning and checking directory structure. Ensure CI/CD workflows are triggered on push.

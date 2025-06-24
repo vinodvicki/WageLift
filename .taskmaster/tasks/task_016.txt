@@ -1,0 +1,11 @@
+# Task ID: 16
+# Title: Integrate Voice Features
+# Status: pending
+# Dependencies: 3
+# Priority: low
+# Description: Add voice-activated features using Speechly.
+# Details:
+Integrate `@speechly/react-client` for voice commands. Implement voice-to-text for drafts.
+
+# Test Strategy:
+Test voice recognition accuracy. Validate feature usability.

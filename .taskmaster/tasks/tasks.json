@@ -1,0 +1,747 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup Project Repository",
+        "description": "Initialize the project repository with the required structure, including backend and frontend directories, and configure version control.",
+        "details": "Create a new repository on GitHub/GitLab. Initialize with a README, .gitignore, and directory structure (backend, frontend, docs). Set up branch protection rules and CI/CD workflows.",
+        "testStrategy": "Verify repository setup by cloning and checking directory structure. Ensure CI/CD workflows are triggered on push.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Install Backend Dependencies",
+        "description": "Install and configure all backend dependencies and external APIs as specified in the PRD for Phase 2 AI features.",
+        "status": "in-progress",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "details": "1) Use pip to install ML/AI dependencies: `spacy>=3.7.0`, `transformers>=4.36.0`, `scikit-learn>=1.3.0`, `xgboost>=2.0.0`, `websockets>=12.0`, `yfinance>=0.2.18`, `fredapi>=0.5.0`, `alpha-vantage>=2.3.1`, `plotly>=5.17.0`.\n2) Set up external API keys: Hugging Face API (free 30K/month), Alpha Vantage API (free 25/day), FRED API (free unlimited), Pusher WebSocket ($9/month), Speechly API.\n3) Configure environment variables in both .env and .cursor/mcp.json.\n4) Test all API connections to ensure they work properly.",
+        "testStrategy": "1) Verify installations by running `pip list` and checking versions. Test basic functionality of each library.\n2) Validate all API connections are working properly.\n3) Confirm environment variables are correctly set in both configuration files.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Configure External API Keys",
+            "description": "Set up and test all external API keys required for Phase 2 features",
+            "details": "1) Sign up for Hugging Face API (free 30K/month), 2) Get Alpha Vantage API key (free 25/day), 3) Register for FRED API (free unlimited), 4) Set up Pusher account ($9/month), 5) Configure Speechly API, 6) Add all keys to .env and .cursor/mcp.json, 7) Test each API connection",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 2
+          },
+          {
+            "id": 2,
+            "title": "Install ML/AI Python Dependencies",
+            "description": "Install all required Python packages for machine learning and AI features",
+            "details": "Install: spacy>=3.7.0, transformers>=4.36.0, scikit-learn>=1.3.0, xgboost>=2.0.0, websockets>=12.0, yfinance>=0.2.18, fredapi>=0.5.0, alpha-vantage>=2.3.1, plotly>=5.17.0. Test imports and basic functionality.",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 2
+          },
+          {
+            "id": 3,
+            "title": "Setup Hugging Face API",
+            "description": "Register and configure Hugging Face API for NLP models",
+            "details": "1) Sign up at https://huggingface.co/settings/tokens, 2) Get API key (free 30K requests/month), 3) Add HUGGINGFACE_API_KEY to .env and .cursor/mcp.json, 4) Test API connection with simple model call",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 2
+          },
+          {
+            "id": 4,
+            "title": "Setup Market Data APIs (Alpha Vantage + FRED)",
+            "description": "Configure market data APIs for economic indicators",
+            "details": "1) Get Alpha Vantage API key (free 25/day) from https://www.alphavantage.co/support/#api-key, 2) Get FRED API key (free unlimited) from https://fred.stlouisfed.org/docs/api/api_key.html, 3) Add both keys to environment variables, 4) Test market data retrieval",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 2
+          },
+          {
+            "id": 5,
+            "title": "Setup Pusher WebSocket Service",
+            "description": "Configure Pusher for real-time WebSocket features ($9/month)",
+            "details": "1) Sign up at https://pusher.com/, 2) Create new app, 3) Get PUSHER_APP_ID, PUSHER_KEY, PUSHER_SECRET, 4) Add to environment variables, 5) Test WebSocket connection, 6) Confirm billing setup ($9/month)",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 2
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Install Frontend Dependencies",
+        "description": "Install and configure all frontend dependencies for Phase 2 development as specified in the PRD.",
+        "status": "pending",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "details": "Use npm/yarn to install dependencies: `framer-motion@^10.16.16` for smooth animations, `react-countup@^6.5.0` for number animations, `socket.io-client@^4.7.4` for real-time updates, `plotly.js@^2.27.0` for advanced charting, `@speechly/react-client@^2.4.0` for voice features, `three@^0.160.0` for 3D visualizations.",
+        "testStrategy": "Verify installations by checking `node_modules` and running basic imports in a test file for each dependency to ensure proper functionality.",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Design Database Schema",
+        "description": "Design and implement the database schema for new tables as specified in the PRD.",
+        "details": "Create tables: `manager_profiles`, `readiness_scores`, `peer_connections`, `success_stories`, `market_intelligence`, `company_analytics`. Define relationships and indexes. Use SQLAlchemy for ORM.",
+        "testStrategy": "Test schema by inserting and querying sample data. Verify relationships and constraints.",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Implement NLP Engine for Manager Profiler",
+        "description": "Develop the NLP engine to analyze manager communication styles using Hugging Face Transformers.",
+        "details": "Use `transformers` library with pre-trained models (e.g., BERT). Implement text classification for 5 communication styles. Integrate with email/Slack for historical analysis.",
+        "testStrategy": "Test accuracy with labeled datasets. Validate real-time detection with sample communications.",
+        "priority": "high",
+        "dependencies": [
+          2,
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Model selection and setup",
+            "description": "Select and configure the appropriate Hugging Face transformer model for personality classification.",
+            "dependencies": [],
+            "details": "Research and choose a pre-trained NLP model suitable for text classification. Set up the model environment with necessary dependencies and configurations.",
+            "status": "pending"
+          },
+          {
+            "id": 2,
+            "title": "Text classification implementation",
+            "description": "Implement the text classification pipeline using the selected model.",
+            "dependencies": [
+              1
+            ],
+            "details": "Develop the code to process input text, feed it into the model, and interpret the output for personality classification. Ensure the pipeline is efficient and scalable.",
+            "status": "pending"
+          },
+          {
+            "id": 3,
+            "title": "Integration with communication platforms",
+            "description": "Integrate the classification system with relevant communication platforms.",
+            "dependencies": [
+              2
+            ],
+            "details": "Connect the NLP pipeline to platforms like Slack or email systems to analyze messages in real-time. Implement APIs or webhooks for seamless integration.",
+            "status": "pending"
+          },
+          {
+            "id": 4,
+            "title": "Accuracy testing",
+            "description": "Test the model's accuracy and performance.",
+            "dependencies": [
+              2
+            ],
+            "details": "Conduct extensive testing using labeled datasets to ensure the model meets the 85%+ accuracy target. Implement fallback mechanisms for low-confidence predictions.",
+            "status": "pending"
+          },
+          {
+            "id": 5,
+            "title": "Real-time detection validation",
+            "description": "Validate the system's performance in real-time scenarios.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Deploy the system in a controlled real-time environment to monitor its performance. Gather feedback and make necessary adjustments to improve reliability.",
+            "status": "pending"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Build Readiness Score ML Pipeline",
+        "description": "Develop the ML pipeline for calculating the Intelligent Readiness Score using XGBoost.",
+        "details": "Train XGBoost model on historical raise success data. Implement real-time scoring API. Include feature engineering and model evaluation.",
+        "testStrategy": "Validate model accuracy with test datasets. Test API endpoints with mock data.",
+        "priority": "high",
+        "dependencies": [
+          2,
+          4
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Data preparation and feature engineering",
+            "description": "Prepare and clean the dataset, perform feature engineering to extract relevant features for the readiness scoring model.",
+            "dependencies": [],
+            "details": "Include steps for handling missing data, outlier detection, normalization, and creation of derived features that may influence raise success.",
+            "status": "pending"
+          },
+          {
+            "id": 2,
+            "title": "Model training",
+            "description": "Train the XGBoost model using the prepared dataset to predict readiness scores.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement cross-validation, hyperparameter tuning, and ensure the model achieves at least 70% correlation with actual raise success.",
+            "status": "pending"
+          },
+          {
+            "id": 3,
+            "title": "API implementation",
+            "description": "Develop an API to serve the trained model for real-time readiness scoring.",
+            "dependencies": [
+              2
+            ],
+            "details": "Ensure the API can handle real-time requests, is scalable, and includes necessary security and performance optimizations.",
+            "status": "pending"
+          },
+          {
+            "id": 4,
+            "title": "Model evaluation and testing",
+            "description": "Evaluate the model's performance and conduct thorough testing to ensure reliability and accuracy.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Perform A/B testing, monitor model drift, and validate that the model maintains the required correlation threshold in production.",
+            "status": "pending"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Set Up WebSocket Infrastructure",
+        "description": "Implement WebSocket infrastructure for real-time updates.",
+        "details": "Use `websockets` library for backend. Integrate with frontend using `socket.io-client`. Implement Redis for caching.",
+        "testStrategy": "Test real-time message delivery and latency. Simulate concurrent users.",
+        "priority": "high",
+        "dependencies": [
+          2,
+          3,
+          "4"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Develop Peer Matching Algorithm",
+        "description": "Implement the anonymous peer matching algorithm for the Peer Success Network.",
+        "details": "Use clustering algorithms (e.g., k-means) to match peers based on profiles. Ensure anonymity and data privacy.",
+        "testStrategy": "Test matching accuracy with synthetic profiles. Validate anonymity.",
+        "priority": "medium",
+        "dependencies": [
+          4,
+          7,
+          "5"
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Implement Real-Time Chat System",
+        "description": "Develop the real-time chat system for peer interactions.",
+        "details": "Use WebSockets for real-time messaging. Implement message persistence and moderation.",
+        "testStrategy": "Test chat functionality with multiple users. Validate message delivery and moderation.",
+        "priority": "medium",
+        "dependencies": [
+          7,
+          8
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Integrate Economic Indicators",
+        "description": "Integrate economic indicators (Fed data, market indices) for Momentum Intelligence.",
+        "details": "Use `fredapi` and `alpha-vantage` APIs. Store and analyze historical data. Implement alerts for optimal timing.",
+        "testStrategy": "Test API integrations and data processing. Validate alert triggers.",
+        "priority": "medium",
+        "dependencies": [
+          2,
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Build Timing Optimization Engine",
+        "description": "Develop the engine to predict optimal raise request timing.",
+        "details": "Use correlation analysis between economic indicators and raise success. Implement prediction models.",
+        "testStrategy": "Validate predictions with historical data. Test alert accuracy.",
+        "priority": "medium",
+        "dependencies": [
+          10
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Develop B2B Dashboard UI",
+        "description": "Design and implement the UI for the Company Intelligence Dashboard.",
+        "details": "Use `plotly.js` for charts. Implement custom dashboard builder with React. Ensure responsive design.",
+        "testStrategy": "Test UI components and responsiveness. Validate data visualization.",
+        "priority": "medium",
+        "dependencies": [
+          3,
+          4
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 13,
+        "title": "Implement Anonymized Salary Analysis",
+        "description": "Develop the backend for anonymized salary trend analysis.",
+        "details": "Aggregate and anonymize salary data. Implement analytics endpoints. Ensure GDPR compliance.",
+        "testStrategy": "Test data aggregation and anonymization. Validate API responses.",
+        "priority": "medium",
+        "dependencies": [
+          4,
+          12
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Set Up Content Moderation",
+        "description": "Implement content moderation for peer success stories and chats.",
+        "details": "Use OpenAI moderation API. Implement automated and manual review workflows.",
+        "testStrategy": "Test moderation with sample content. Validate workflow efficiency.",
+        "priority": "low",
+        "dependencies": [
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 15,
+        "title": "Develop Achievement System",
+        "description": "Implement the community achievement system for peer interactions.",
+        "details": "Define achievement criteria and rewards. Implement tracking and notifications.",
+        "testStrategy": "Test achievement triggers and notifications. Validate reward distribution.",
+        "priority": "low",
+        "dependencies": [
+          8,
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 16,
+        "title": "Integrate Voice Features",
+        "description": "Add voice-activated features using Speechly.",
+        "details": "Integrate `@speechly/react-client` for voice commands. Implement voice-to-text for drafts.",
+        "testStrategy": "Test voice recognition accuracy. Validate feature usability.",
+        "priority": "low",
+        "dependencies": [
+          3
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 17,
+        "title": "Implement 3D Visualizations",
+        "description": "Add 3D visualizations for data insights using Three.js.",
+        "details": "Use `three` library for 3D charts. Integrate with dashboard.",
+        "testStrategy": "Test rendering performance and interactivity.",
+        "priority": "low",
+        "dependencies": [
+          3,
+          12
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 18,
+        "title": "Set Up API Key Rotation",
+        "description": "Implement API key rotation for external services.",
+        "details": "Rotate keys for Hugging Face, Alpha Vantage, and FRED APIs. Implement caching to reduce calls.",
+        "testStrategy": "Test key rotation and caching. Validate API call reduction.",
+        "priority": "low",
+        "dependencies": [
+          2,
+          10
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 19,
+        "title": "Develop User Feedback System",
+        "description": "Implement a system for collecting and analyzing user feedback.",
+        "details": "Create feedback forms and analytics dashboards. Integrate with backend.",
+        "testStrategy": "Test feedback collection and analysis. Validate dashboard updates.",
+        "priority": "low",
+        "dependencies": [
+          5,
+          6,
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 20,
+        "title": "Implement GDPR Compliance",
+        "description": "Ensure all features comply with GDPR and other privacy regulations.",
+        "details": "Review data collection and storage. Implement user consent workflows.",
+        "testStrategy": "Audit data practices. Validate compliance workflows.",
+        "priority": "high",
+        "dependencies": [
+          4,
+          9,
+          14
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Data Collection Review",
+            "description": "Review all data collection processes to ensure they align with GDPR principles, focusing on data minimization and privacy by design.",
+            "dependencies": [],
+            "details": "Identify all data collection points, assess the necessity of collected data, and document compliance with data minimization principles.",
+            "status": "pending"
+          },
+          {
+            "id": 2,
+            "title": "Storage Compliance",
+            "description": "Ensure all data storage methods comply with GDPR requirements, including security measures and data retention policies.",
+            "dependencies": [
+              1
+            ],
+            "details": "Audit current storage solutions, implement encryption where necessary, and establish clear data retention schedules.",
+            "status": "pending"
+          },
+          {
+            "id": 3,
+            "title": "Consent Workflows",
+            "description": "Develop and implement workflows for obtaining, managing, and documenting user consent in line with GDPR standards.",
+            "dependencies": [
+              1
+            ],
+            "details": "Design consent forms, ensure clear opt-in mechanisms, and create systems for recording and managing consent preferences.",
+            "status": "pending"
+          },
+          {
+            "id": 4,
+            "title": "Audit and Validation",
+            "description": "Conduct a comprehensive audit of all GDPR compliance measures and validate their effectiveness.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Perform internal audits, prepare for external legal audits, and validate that all processes meet GDPR requirements, including the right to be forgotten and data portability.",
+            "status": "pending"
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "title": "Set Up Load Testing",
+        "description": "Configure load testing for real-time systems.",
+        "details": "Use tools like Locust to simulate high traffic. Test WebSocket and chat performance.",
+        "testStrategy": "Run load tests and analyze results. Optimize as needed.",
+        "priority": "medium",
+        "dependencies": [
+          7,
+          9
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 22,
+        "title": "Develop B2B Onboarding",
+        "description": "Create workflows for B2B customer onboarding.",
+        "details": "Implement signup, payment, and dashboard setup flows. Include support for enterprise features.",
+        "testStrategy": "Test onboarding workflows with mock customers.",
+        "priority": "medium",
+        "dependencies": [
+          12,
+          13
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 23,
+        "title": "Implement Revenue Tracking",
+        "description": "Set up tracking for B2B and premium subscriptions.",
+        "details": "Integrate Stripe or similar for payments. Implement analytics for revenue streams.",
+        "testStrategy": "Test payment processing and tracking.",
+        "priority": "low",
+        "dependencies": [
+          22
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 24,
+        "title": "Develop Fallback Mechanisms",
+        "description": "Implement fallbacks for AI and API failures.",
+        "details": "Create graceful degradation for ML models and external APIs. Cache fallback data.",
+        "testStrategy": "Simulate failures and validate fallbacks.",
+        "priority": "medium",
+        "dependencies": [
+          5,
+          6,
+          10
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 25,
+        "title": "Prepare Alpha Testing",
+        "description": "Set up environment and select users for alpha testing.",
+        "details": "Select 100 power users. Prepare test environment and feedback tools.",
+        "testStrategy": "Monitor user feedback and system performance during testing.",
+        "priority": "high",
+        "dependencies": [
+          5,
+          6,
+          7,
+          9,
+          12
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-22T15:01:28.467Z",
+      "updated": "2025-06-22T15:19:17.569Z",
+      "description": "Tasks for phase2-revolutionary context"
+    }
+  },
+  "phase1-foundation": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup Project Repository",
+        "description": "Initialize the project repository with Next.js and FastAPI boilerplate, including Docker configuration and CI/CD setup.",
+        "details": "Use Next.js v14 for the frontend and FastAPI v0.95.0 for the backend. Configure Docker for containerization. Set up GitHub Actions for CI/CD with workflows for testing and deployment to Vercel (frontend) and Railway (backend).",
+        "testStrategy": "Verify repository setup by running initial build and test scripts. Ensure Docker containers can be spun up locally.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Implement Auth System",
+        "description": "Set up JWT-based authentication using Auth0 for secure user sign-up and login.",
+        "details": "Integrate Auth0 SDK for Next.js and FastAPI. Configure JWT token validation. Implement user registration and login endpoints. Store user data in PostgreSQL with Supabase.",
+        "testStrategy": "Test user registration, login, and token validation. Ensure secure storage of user credentials.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Design PostgreSQL Schema",
+        "description": "Define and implement the database schema for core data models.",
+        "details": "Create tables for User, SalaryEntry, Benchmark, RaiseRequest, and CPI. Use Supabase for PostgreSQL hosting. Define relationships and indexes.",
+        "testStrategy": "Test schema by inserting and querying sample data. Verify relationships and constraints.",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "CPI Fetch Cron Job",
+        "description": "Implement a cron job to fetch and cache CPI data from the BLS API.",
+        "details": "Use Python's `requests` library to fetch CPI data from BLS API (series CUSR0000SA0). Store data in PostgreSQL. Schedule the job using Celery or a similar task scheduler.",
+        "testStrategy": "Verify data fetch and storage. Test cron job execution and error handling.",
+        "priority": "medium",
+        "dependencies": [
+          1,
+          3
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Salary Form Interface",
+        "description": "Develop the frontend form for users to input salary and last raise date.",
+        "details": "Create a mobile-first form using Next.js and Tailwind CSS. Include fields for salary amount, last raise date, and optional payroll sync. Validate inputs client-side.",
+        "testStrategy": "Test form submission and validation. Ensure mobile responsiveness.",
+        "priority": "medium",
+        "dependencies": [
+          1,
+          2
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "CPI Gap Calculation",
+        "description": "Implement backend logic to calculate the inflation gap for a user's salary.",
+        "details": "Use cached CPI data to adjust the user's past salary to today's value. Calculate the percentage and dollar gap. Expose this via a FastAPI endpoint.",
+        "testStrategy": "Test calculations with sample data. Verify endpoint responses.",
+        "priority": "high",
+        "dependencies": [
+          3,
+          4,
+          5
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Results Page UI",
+        "description": "Develop the results page displaying CPI gap and market benchmarks.",
+        "details": "Use React and Tailwind CSS to create a responsive results page. Include a color-coded gauge for the CPI gap and a chart for market benchmarks. Add tooltips for explanations.",
+        "testStrategy": "Test UI rendering and responsiveness. Verify data display accuracy.",
+        "priority": "medium",
+        "dependencies": [
+          5,
+          6
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Static Raise-Letter Template",
+        "description": "Create a static template for raise requests.",
+        "details": "Design a basic HTML template for raise requests. Include placeholders for user-specific data.",
+        "testStrategy": "Test template rendering with sample data.",
+        "priority": "low",
+        "dependencies": [
+          5
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Integrate Salary Benchmark API",
+        "description": "Connect to CareerOneStop or Payscale API to fetch market salary data.",
+        "details": "Use the CareerOneStop Salaries API to fetch wage percentiles by SOC and ZIP code. Store results in PostgreSQL.",
+        "testStrategy": "Test API calls and data storage. Verify accuracy of fetched data.",
+        "priority": "medium",
+        "dependencies": [
+          3,
+          5
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Enhanced Results Visualization",
+        "description": "Update the results page to include market percentile charts.",
+        "details": "Use Chart.js or a similar library to visualize market percentiles. Integrate with the existing results page.",
+        "testStrategy": "Test chart rendering and data accuracy.",
+        "priority": "medium",
+        "dependencies": [
+          7,
+          9
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "GPT Prompt Service",
+        "description": "Implement a service to generate raise requests using GPT-4 Turbo.",
+        "details": "Use OpenAI's GPT-4 Turbo API to generate raise requests. Feed user data into a structured prompt. Return editable HTML content.",
+        "testStrategy": "Test prompt generation and output quality. Ensure user data is correctly embedded.",
+        "priority": "high",
+        "dependencies": [
+          5,
+          8
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Editable Raise-Request UI",
+        "description": "Develop a UI for users to edit AI-generated raise requests.",
+        "details": "Create a React component for editing raise requests. Include a preview mode and save functionality.",
+        "testStrategy": "Test editing and saving functionality. Verify UI responsiveness.",
+        "priority": "medium",
+        "dependencies": [
+          11
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 13,
+        "title": "PDF/Email Send Functionality",
+        "description": "Implement functionality to send raise requests as PDFs or emails.",
+        "details": "Use libraries like `pdf-lib` for PDF generation and Nodemailer for email sending. Integrate with the editable UI.",
+        "testStrategy": "Test PDF generation and email sending. Verify content accuracy.",
+        "priority": "medium",
+        "dependencies": [
+          12
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "React Native Dashboard",
+        "description": "Develop a mobile dashboard for WageLift using React Native.",
+        "details": "Use Expo to create a React Native app. Reuse components from the web dashboard where possible.",
+        "testStrategy": "Test mobile app functionality and performance.",
+        "priority": "low",
+        "dependencies": [
+          7,
+          10
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 15,
+        "title": "Gusto Payroll Integration",
+        "description": "Implement OAuth integration with Gusto for payroll sync.",
+        "details": "Use Gusto's Embedded Payroll OAuth flow to fetch salary data. Store tokens securely. Automate salary updates.",
+        "testStrategy": "Test OAuth flow and data synchronization. Verify token security.",
+        "priority": "low",
+        "dependencies": [
+          2,
+          5
+        ],
+        "status": "done",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-22T15:33:00.715Z",
+      "updated": "2025-06-23T02:54:12.350Z",
+      "description": "Tasks for phase1-foundation context"
+    }
+  }
+}

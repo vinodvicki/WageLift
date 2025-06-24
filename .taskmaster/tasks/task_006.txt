@@ -1,0 +1,37 @@
+# Task ID: 6
+# Title: Build Readiness Score ML Pipeline
+# Status: pending
+# Dependencies: 2, 4
+# Priority: high
+# Description: Develop the ML pipeline for calculating the Intelligent Readiness Score using XGBoost.
+# Details:
+Train XGBoost model on historical raise success data. Implement real-time scoring API. Include feature engineering and model evaluation.
+
+# Test Strategy:
+Validate model accuracy with test datasets. Test API endpoints with mock data.
+
+# Subtasks:
+## 1. Data preparation and feature engineering [pending]
+### Dependencies: None
+### Description: Prepare and clean the dataset, perform feature engineering to extract relevant features for the readiness scoring model.
+### Details:
+Include steps for handling missing data, outlier detection, normalization, and creation of derived features that may influence raise success.
+
+## 2. Model training [pending]
+### Dependencies: 6.1
+### Description: Train the XGBoost model using the prepared dataset to predict readiness scores.
+### Details:
+Implement cross-validation, hyperparameter tuning, and ensure the model achieves at least 70% correlation with actual raise success.
+
+## 3. API implementation [pending]
+### Dependencies: 6.2
+### Description: Develop an API to serve the trained model for real-time readiness scoring.
+### Details:
+Ensure the API can handle real-time requests, is scalable, and includes necessary security and performance optimizations.
+
+## 4. Model evaluation and testing [pending]
+### Dependencies: 6.2, 6.3
+### Description: Evaluate the model's performance and conduct thorough testing to ensure reliability and accuracy.
+### Details:
+Perform A/B testing, monitor model drift, and validate that the model maintains the required correlation threshold in production.
+

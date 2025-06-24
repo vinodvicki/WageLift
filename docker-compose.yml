@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # Frontend (Next.js)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: runner
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://backend:8000/api/v1
+      - NEXT_PUBLIC_APP_URL=http://localhost:3000
+    depends_on:
+      - backend
+    networks:
+      - wagelift-network
+    restart: unless-stopped
+
+  # Backend (FastAPI)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=false
+      - POSTGRES_SERVER=postgres
+      - POSTGRES_USER=wagelift
+      - POSTGRES_PASSWORD=wagelift_password_2024
+      - POSTGRES_DB=wagelift
+      - POSTGRES_PORT=5432
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=your-secret-key-here-change-in-production
+      - AUTH0_DOMAIN=${AUTH0_DOMAIN}
+      - AUTH0_AUDIENCE=${AUTH0_AUDIENCE}
+      - AUTH0_CLIENT_ID=${AUTH0_CLIENT_ID}
+      - AUTH0_CLIENT_SECRET=${AUTH0_CLIENT_SECRET}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - BLS_API_KEY=${BLS_API_KEY}
+      - CAREERONESTOP_USER_ID=${CAREERONESTOP_USER_ID}
+      - CAREERONESTOP_AUTHORIZATION_TOKEN=${CAREERONESTOP_AUTHORIZATION_TOKEN}
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - wagelift-network
+    restart: unless-stopped
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=wagelift
+      - POSTGRES_PASSWORD=wagelift_password_2024
+      - POSTGRES_DB=wagelift
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - wagelift-network
+    restart: unless-stopped
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - wagelift-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  wagelift-network:
+    driver: bridge 

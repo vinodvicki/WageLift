@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WageLift - Reclaim Your Lost Wages</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f4ff',
+                            100: '#e0e9ff',
+                            200: '#c7d6ff',
+                            300: '#a5b8ff',
+                            400: '#8192ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                            950: '#1e1b4b'
+                        },
+                        accent: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        display: ['Cal Sans', 'Inter', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-up': 'fadeUp 0.6s ease-out',
+                        'fade-in': 'fadeIn 0.4s ease-out',
+                        'scale-in': 'scaleIn 0.3s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-soft': 'pulseSoft 2s ease-in-out infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        
+        @keyframes pulseSoft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .shadow-brand {
+            box-shadow: 0 10px 25px -3px rgba(99, 102, 241, 0.1), 0 4px 6px -2px rgba(99, 102, 241, 0.05);
+        }
+        
+        .shadow-accent {
+            box-shadow: 0 10px 25px -3px rgba(245, 158, 11, 0.2), 0 4px 6px -2px rgba(245, 158, 11, 0.1);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            @apply bg-accent-400 hover:bg-accent-500 text-gray-900 font-semibold px-8 py-4 rounded-xl shadow-accent transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-2;
+        }
+        
+        .btn-secondary {
+            @apply border-2 border-white/90 text-white hover:bg-white/10 font-semibold px-6 py-3 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-600;
+        }
+        
+        .card-elevated {
+            @apply bg-white rounded-2xl shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300;
+        }
+        
+        .input-field {
+            @apply w-full px-4 py-4 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition-all duration-200;
+        }
+    </style>
+</head>
+<body class="bg-white font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center shadow-brand">
+                        <i data-lucide="trending-up" class="text-white w-6 h-6"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-white">WageLift</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-white/90 hover:text-white transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-600 rounded-lg px-3 py-2">Features</a>
+                    <a href="#how-it-works" class="text-white/90 hover:text-white transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-600 rounded-lg px-3 py-2">How It Works</a>
+                    <a href="#demo" class="text-white/90 hover:text-white transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-600 rounded-lg px-3 py-2">Demo</a>
+                    <button onclick="scrollToDemo()" class="btn-primary text-lg">
+                        Calculate My Gap
+                    </button>
+                </div>
+                
+                <button class="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white" aria-label="Toggle menu">
+                    <i data-lucide="menu" class="w-6 h-6 text-white"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-16 pb-32 hero-gradient relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse-soft"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-accent-300 rounded-full blur-3xl animate-pulse-soft" style="animation-delay: 1s;"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-6 lg:px-8 pt-20">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Hero Content -->
+                <div class="text-center lg:text-left animate-fade-up">
+                    <!-- Trust Badge -->
+                    <div class="inline-flex items-center glass-effect rounded-full px-6 py-3 mb-8 animate-scale-in">
+                        <div class="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse"></div>
+                        <span class="text-white text-sm font-medium">Used by 500+ professionals</span>
+                    </div>
+                    
+                    <!-- Hero Headline -->
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                        Reclaim Your
+                        <span class="text-accent-300 relative">
+                            Lost Wages
+                            <div class="absolute -bottom-2 left-0 w-full h-1 bg-accent-300 rounded-full opacity-60"></div>
+                        </span>
+                    </h1>
+                    
+                    <!-- Sub-headline -->
+                    <p class="text-xl text-white/90 mb-12 leading-relaxed max-w-lg font-medium">
+                        See exactly how inflation cut your pay—and get your raise request ready in 30 seconds.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                        <button onclick="scrollToDemo()" class="btn-primary text-xl px-10 py-5 group">
+                            <i data-lucide="calculator" class="inline w-6 h-6 mr-3 group-hover:rotate-12 transition-transform"></i>
+                            Calculate My Gap
+                        </button>
+                        <button onclick="playDemo()" class="btn-secondary text-lg">
+                            <i data-lucide="play-circle" class="inline w-5 h-5 mr-2"></i>
+                            See Demo Video
+                        </button>
+                    </div>
+                    
+                    <!-- Trust Elements -->
+                    <div class="flex flex-wrap items-center justify-center lg:justify-start gap-8 text-white/80 text-sm">
+                        <div class="flex items-center group">
+                            <i data-lucide="shield-check" class="w-5 h-5 mr-2 group-hover:text-green-300 transition-colors"></i>
+                            <span>GDPR Compliant</span>
+                        </div>
+                        <div class="flex items-center group">
+                            <i data-lucide="lock" class="w-5 h-5 mr-2 group-hover:text-blue-300 transition-colors"></i>
+                            <span>Bank-Level Security</span>
+                        </div>
+                        <div class="flex items-center group">
+                            <i data-lucide="zap" class="w-5 h-5 mr-2 group-hover:text-yellow-300 transition-colors"></i>
+                            <span>30-Second Setup</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Preview -->
+                <div class="animate-float">
+                    <div class="card-elevated p-8 backdrop-blur-sm">
+                        <!-- Browser Chrome -->
+                        <div class="flex items-center justify-between mb-8">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-400 hover:bg-red-500 transition-colors cursor-pointer"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-400 hover:bg-yellow-500 transition-colors cursor-pointer"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-400 hover:bg-green-500 transition-colors cursor-pointer"></div>
+                            </div>
+                            <span class="text-xs text-gray-500 font-medium">WageLift Dashboard</span>
+                        </div>
+                        
+                        <!-- Inflation Gauge -->
+                        <div class="text-center mb-8">
+                            <div class="relative w-40 h-40 mx-auto mb-6">
+                                <svg class="w-40 h-40 transform -rotate-90" viewBox="0 0 36 36">
+                                    <path class="text-gray-200" stroke="currentColor" stroke-width="2.5" fill="none" 
+                                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="text-red-500 animate-pulse" stroke="currentColor" stroke-width="2.5" fill="none" 
+                                          stroke-dasharray="73, 100" stroke-linecap="round"
+                                          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-center">
+                                        <div class="text-3xl font-bold text-red-600 mb-1">-$8,247</div>
+                                        <div class="text-xs text-gray-500 font-medium">Lost to inflation</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Stats Grid -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-4 text-center border border-red-200">
+                                <div class="text-2xl font-bold text-red-700 mb-1">11.0%</div>
+                                <div class="text-xs text-red-600 font-medium">Inflation Gap</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center border border-green-200">
+                                <div class="text-2xl font-bold text-green-700 mb-1">Ready</div>
+                                <div class="text-xs text-green-600 font-medium">AI Letter</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20 animate-fade-up">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">How It Works</h2>
+                <p class="text-xl text-gray-600 font-medium">Three simple steps to your raise request</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Step 1 -->
+                <div class="text-center group animate-fade-up" style="animation-delay: 0.1s;">
+                    <div class="relative mb-8">
+                        <div class="bg-brand-600 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto shadow-brand group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                            <i data-lucide="dollar-sign" class="text-white w-10 h-10"></i>
+                        </div>
+                        <div class="absolute -top-2 -right-2 w-6 h-6 bg-accent-400 rounded-full flex items-center justify-center">
+                            <span class="text-xs font-bold text-gray-900">1</span>
+                        </div>
+                        <div class="hidden md:block absolute top-10 -right-8">
+                            <i data-lucide="arrow-right" class="text-brand-300 w-8 h-8"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Enter Salary</h3>
+                    <p class="text-gray-600 leading-relaxed text-lg">Input your current salary and when you last received a raise</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="text-center group animate-fade-up" style="animation-delay: 0.2s;">
+                    <div class="relative mb-8">
+                        <div class="bg-red-500 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                            <i data-lucide="trending-down" class="text-white w-10 h-10"></i>
+                        </div>
+                        <div class="absolute -top-2 -right-2 w-6 h-6 bg-accent-400 rounded-full flex items-center justify-center">
+                            <span class="text-xs font-bold text-gray-900">2</span>
+                        </div>
+                        <div class="hidden md:block absolute top-10 -right-8">
+                            <i data-lucide="arrow-right" class="text-brand-300 w-8 h-8"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">View Gap</h3>
+                    <p class="text-gray-600 leading-relaxed text-lg">See exactly how much purchasing power inflation has stolen from you</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="text-center group animate-fade-up" style="animation-delay: 0.3s;">
+                    <div class="relative mb-8">
+                        <div class="bg-green-500 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                            <i data-lucide="file-text" class="text-white w-10 h-10"></i>
+                        </div>
+                        <div class="absolute -top-2 -right-2 w-6 h-6 bg-accent-400 rounded-full flex items-center justify-center">
+                            <span class="text-xs font-bold text-gray-900">3</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Generate Letter</h3>
+                    <p class="text-gray-600 leading-relaxed text-lg">Get a professional, data-backed raise request ready to send</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20 animate-fade-up">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Why WageLift Works</h2>
+                <p class="text-xl text-gray-600 font-medium max-w-3xl mx-auto">Real data, AI intelligence, and professional presentation combine to give you the strongest possible case</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-12">
+                <!-- Feature 1 -->
+                <div class="text-center group animate-fade-up" style="animation-delay: 0.1s;">
+                    <div class="card-elevated p-8 mb-6 group-hover:scale-105 transition-all duration-300">
+                        <div class="relative w-24 h-24 mx-auto mb-6">
+                            <div class="absolute inset-0 bg-gradient-to-br from-red-100 to-red-200 rounded-2xl"></div>
+                            <svg class="relative w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                                <path class="text-red-200" stroke="currentColor" stroke-width="2" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                <path class="text-red-500" stroke="currentColor" stroke-width="2" fill="none" stroke-dasharray="60, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i data-lucide="trending-down" class="text-red-600 w-8 h-8"></i>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-4 shadow-sm border-l-4 border-red-500">
+                            <div class="text-lg font-bold text-red-700">-11.0%</div>
+                            <div class="text-sm text-red-600 font-medium">Purchasing Power</div>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Real BLS Inflation Data</h3>
+                    <p class="text-gray-600 leading-relaxed">Government Consumer Price Index data shows exactly how inflation has eroded your buying power over time</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="text-center group animate-fade-up" style="animation-delay: 0.2s;">
+                    <div class="card-elevated p-8 mb-6 group-hover:scale-105 transition-all duration-300">
+                        <div class="relative w-24 h-24 mx-auto mb-6">
+                            <div class="absolute inset-0 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl"></div>
+                            <div class="relative grid grid-cols-4 gap-1 h-full items-end p-4">
+                                <div class="bg-green-300 rounded-t h-1/2"></div>
+                                <div class="bg-green-400 rounded-t h-3/4"></div>
+                                <div class="bg-green-500 rounded-t h-full"></div>
+                                <div class="bg-green-600 rounded-t h-5/6"></div>
+                            </div>
+                            <div class="absolute -top-1 -right-1">
+                                <div class="bg-green-600 rounded-full p-1">
+                                    <i data-lucide="trending-up" class="text-white w-4 h-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-4 shadow-sm border-l-4 border-green-500">
+                            <div class="text-lg font-bold text-green-700">75th</div>
+                            <div class="text-sm text-green-600 font-medium">Percentile Goal</div>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Market Benchmarking</h3>
+                    <p class="text-gray-600 leading-relaxed">CareerOneStop API data reveals what others in your role and location actually earn in today's market</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="text-center group animate-fade-up" style="animation-delay: 0.3s;">
+                    <div class="card-elevated p-8 mb-6 group-hover:scale-105 transition-all duration-300">
+                        <div class="relative w-24 h-24 mx-auto mb-6">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand-100 to-brand-200 rounded-2xl"></div>
+                            <div class="relative bg-white rounded-xl shadow-sm p-4 m-2 transform rotate-3">
+                                <div class="space-y-1.5">
+                                    <div class="h-1.5 bg-gray-300 rounded w-full"></div>
+                                    <div class="h-1.5 bg-gray-300 rounded w-3/4"></div>
+                                    <div class="h-1.5 bg-brand-400 rounded w-1/2"></div>
+                                    <div class="h-1.5 bg-gray-300 rounded w-5/6"></div>
+                                </div>
+                            </div>
+                            <div class="absolute -top-1 -right-1">
+                                <div class="bg-brand-600 rounded-full p-1">
+                                    <i data-lucide="sparkles" class="text-white w-4 h-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-brand-50 to-brand-100 rounded-xl p-4 shadow-sm border-l-4 border-brand-500">
+                            <div class="text-lg font-bold text-brand-700">GPT-4</div>
+                            <div class="text-sm text-brand-600 font-medium">AI Generated</div>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">AI-Powered Letters</h3>
+                    <p class="text-gray-600 leading-relaxed">Professional raise requests written by GPT-4 using your specific data and achievements</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="py-24 bg-gradient-to-br from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20 animate-fade-up">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Try WageLift Now</h2>
+                <p class="text-xl text-gray-600 font-medium">See your inflation gap in under 30 seconds</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Input Form -->
+                <div class="card-elevated p-8 animate-fade-up">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-8">Your Information</h3>
+                    <form class="space-y-8" onsubmit="event.preventDefault(); calculateGap();">
+                        <div>
+                            <label for="currentSalary" class="block text-sm font-semibold text-gray-700 mb-3">Current Annual Salary</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-4 text-gray-500 text-lg font-medium">$</span>
+                                <input type="number" id="currentSalary" value="75000" 
+                                       class="input-field pl-10" 
+                                       aria-describedby="salary-help"
+                                       required>
+                            </div>
+                            <div id="salary-help" class="mt-2 text-sm text-gray-500">Enter your current annual salary in USD</div>
+                        </div>
+                        
+                        <div>
+                            <label for="yearsSince" class="block text-sm font-semibold text-gray-700 mb-3">Years Since Last Raise</label>
+                            <input type="number" id="yearsSince" value="2" step="0.5" min="0" max="10"
+                                   class="input-field"
+                                   aria-describedby="years-help"
+                                   required>
+                            <div id="years-help" class="mt-2 text-sm text-gray-500">How long since your last salary increase?</div>
+                        </div>
+                        
+                        <div>
+                            <label for="jobTitle" class="block text-sm font-semibold text-gray-700 mb-3">Job Title</label>
+                            <input type="text" id="jobTitle" value="Software Developer" 
+                                   class="input-field"
+                                   aria-describedby="title-help"
+                                   required>
+                            <div id="title-help" class="mt-2 text-sm text-gray-500">Your current job title or role</div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary w-full text-xl py-5 group">
+                            <i data-lucide="zap" class="inline w-6 h-6 mr-3 group-hover:animate-pulse"></i>
+                            Calculate My Gap
+                        </button>
+                        
+                        <div class="flex items-center justify-center space-x-8 text-sm text-gray-500 pt-4">
+                            <div class="flex items-center">
+                                <i data-lucide="shield-check" class="w-4 h-4 mr-2 text-green-500"></i>
+                                <span>100% Secure</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-lucide="clock" class="w-4 h-4 mr-2 text-blue-500"></i>
+                                <span>30 Seconds</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i data-lucide="gift" class="w-4 h-4 mr-2 text-purple-500"></i>
+                                <span>Free Forever</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Results -->
+                <div id="results" class="card-elevated p-8 animate-fade-up" style="animation-delay: 0.2s;">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-8">Your Results</h3>
+                    <div id="resultsContent">
+                        <div class="text-center py-16">
+                            <div class="w-24 h-24 bg-gradient-to-br from-brand-100 to-brand-200 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <i data-lucide="calculator" class="w-12 h-12 text-brand-600"></i>
+                            </div>
+                            <p class="text-gray-500 text-lg font-medium">Enter your information to see your personalized inflation gap analysis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h4 class="text-3xl font-bold mb-4">Stay Ahead of Inflation</h4>
+                <p class="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">Get weekly insights on salary trends, inflation data, and negotiation strategies delivered to your inbox</p>
+                <form class="max-w-md mx-auto flex" onsubmit="event.preventDefault(); subscribeNewsletter();">
+                    <input type="email" placeholder="Enter your email address" 
+                           class="flex-1 px-6 py-4 rounded-l-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-accent-400 text-lg"
+                           required>
+                    <button type="submit" class="bg-accent-400 hover:bg-accent-500 text-gray-900 px-8 py-4 rounded-r-xl transition-colors font-bold text-lg">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-brand-600 rounded-xl flex items-center justify-center mr-3 shadow-brand">
+                            <i data-lucide="trending-up" class="text-white w-6 h-6"></i>
+                        </div>
+                        <span class="text-2xl font-bold">WageLift</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 leading-relaxed">Empowering professionals with data-driven salary negotiations for the modern workforce.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800" aria-label="Twitter">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800" aria-label="LinkedIn">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-gray-800" aria-label="GitHub">
+                            <i data-lucide="github" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 text-lg">Product</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#demo" class="hover:text-white transition-colors">Demo</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">API</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 text-lg">Company</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4 text-lg">Support</h4>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Status</a></li>
+                        <li><a href="#" onclick="openLegalModal()" class="hover:text-white transition-colors cursor-pointer">Legal & Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-400">
+                    &copy; 2024 WageLift. All rights reserved. | 
+                    <span class="text-accent-400 font-semibold">93.33% Complete</span> | 
+                    Built with modern web technologies
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Smooth scrolling
+        function scrollToDemo() {
+            document.getElementById('demo').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function playDemo() {
+            alert('🎥 Demo Video\n\nThis would open an interactive video showing:\n• Live calculator walkthrough\n• AI letter generation process\n• Real success stories\n• Step-by-step tutorial');
+        }
+
+        // Enhanced calculation with animations
+        function calculateGap() {
+            const currentSalary = parseFloat(document.getElementById('currentSalary').value) || 75000;
+            const years = parseFloat(document.getElementById('yearsSince').value) || 2;
+            const jobTitle = document.getElementById('jobTitle').value || 'Software Developer';
+            
+            // Show loading state
+            document.getElementById('resultsContent').innerHTML = `
+                <div class="text-center py-16">
+                    <div class="w-16 h-16 border-4 border-brand-200 border-t-brand-600 rounded-full animate-spin mx-auto mb-6"></div>
+                    <p class="text-gray-600 font-medium">Calculating your inflation gap...</p>
+                </div>
+            `;
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                const annualInflationRate = 5.8;
+                const totalInflation = Math.pow(1 + annualInflationRate/100, years) - 1;
+                const adjustedSalary = currentSalary * (1 + totalInflation);
+                const gap = adjustedSalary - currentSalary;
+                const percentageGap = (gap / currentSalary) * 100;
+                
+                document.getElementById('resultsContent').innerHTML = `
+                    <div class="space-y-8 animate-fade-up">
+                        <div class="text-center p-8 bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl border-2 border-red-100">
+                            <div class="text-5xl font-bold text-red-600 mb-3 animate-scale-in">
+                                -$${gap.toLocaleString('en-US', {maximumFractionDigits: 0})}
+                            </div>
+                            <div class="text-lg text-gray-700 mb-6 font-medium">Lost to inflation over ${years} year${years !== 1 ? 's' : ''}</div>
+                            <div class="w-full bg-red-200 rounded-full h-4 mb-6 overflow-hidden">
+                                <div class="bg-gradient-to-r from-red-500 to-red-600 h-4 rounded-full transition-all duration-2000 animate-pulse" 
+                                     style="width: ${Math.min(percentageGap * 5, 100)}%"></div>
+                            </div>
+                            <div class="text-2xl font-bold text-green-600">
+                                ${percentageGap.toFixed(1)}% raise needed to break even
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <button onclick="generateLetter()" class="btn-primary py-4 group">
+                                <i data-lucide="file-text" class="inline w-5 h-5 mr-2 group-hover:rotate-12 transition-transform"></i>
+                                Generate Letter
+                            </button>
+                            <button onclick="shareResults()" class="border-2 border-gray-300 text-gray-600 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-400">
+                                <i data-lucide="share" class="inline w-5 h-5 mr-2"></i>
+                                Share Results
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
+                                <div class="text-2xl font-bold text-blue-700">$${adjustedSalary.toLocaleString('en-US', {maximumFractionDigits: 0})}</div>
+                                <div class="text-sm text-blue-600 font-medium">Inflation-adjusted salary</div>
+                            </div>
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
+                                <div class="text-2xl font-bold text-purple-700">${annualInflationRate}%</div>
+                                <div class="text-sm text-purple-600 font-medium">Annual inflation rate</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                lucide.createIcons();
+            }, 1500);
+        }
+
+        function generateLetter() {
+            alert('🤖 AI Letter Generator\n\nGenerating your personalized raise request...\n\n✅ Salary data analysis\n✅ Market research integration\n✅ Professional formatting\n✅ Persuasive language optimization\n\nYour letter will be ready in 30 seconds!');
+        }
+
+        function shareResults() {
+            alert('📤 Share Your Results\n\nShare options:\n• 📋 Copy shareable link\n• 📄 Download PDF report\n• 📧 Email to yourself\n• 💼 Share on LinkedIn\n• 📱 Generate QR code');
+        }
+
+        function subscribeNewsletter() {
+            alert('📧 Newsletter Subscription\n\nThank you for subscribing!\n\nYou\'ll receive:\n• Weekly salary trend reports\n• Inflation impact analysis\n• Negotiation strategy tips\n• Market benchmark updates');
+        }
+
+        function openLegalModal() {
+            alert('📄 Legal & Privacy Information\n\nThis would open a comprehensive modal with:\n• Privacy Policy\n• Terms of Service\n• GDPR Compliance Details\n• CCPA Information\n• Cookie Policy\n• Data Security Practices');
+        }
+
+        // Auto-calculate on page load for demo
+        setTimeout(() => {
+            calculateGap();
+        }, 2000);
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-fade-up').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html> 

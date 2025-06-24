@@ -1,0 +1,213 @@
+{
+	"meta": {
+		"generatedAt": "2025-06-22T15:07:22.401Z",
+		"tasksAnalyzed": 25,
+		"totalTasks": 25,
+		"analysisCount": 25,
+		"thresholdScore": 7,
+		"projectName": "Taskmaster",
+		"usedResearch": true
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "Setup Project Repository",
+			"complexityScore": 3,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the repository setup into: 1) Creating the repository and initial files, 2) Configuring branch protection rules, 3) Setting up CI/CD workflows.",
+			"reasoning": "The task involves multiple distinct steps that can be handled separately for better tracking and clarity."
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "Install Backend Dependencies",
+			"complexityScore": 2,
+			"recommendedSubtasks": 2,
+			"expansionPrompt": "Divide into: 1) Installing core dependencies, 2) Verifying installations and functionality.",
+			"reasoning": "While straightforward, splitting ensures each dependency set is verified independently."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "Install Frontend Dependencies",
+			"complexityScore": 2,
+			"recommendedSubtasks": 2,
+			"expansionPrompt": "Split into: 1) Installing npm/yarn packages, 2) Testing basic imports and functionality.",
+			"reasoning": "Similar to backend dependencies, this ensures each package is correctly installed and functional."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "Design Database Schema",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break into: 1) Defining table structures, 2) Setting relationships and indexes, 3) Implementing ORM mappings, 4) Testing with sample data.",
+			"reasoning": "Database design requires careful planning and testing, warranting multiple subtasks."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "Implement NLP Engine for Manager Profiler",
+			"complexityScore": 8,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Divide into: 1) Model selection and setup, 2) Text classification implementation, 3) Integration with communication platforms, 4) Accuracy testing, 5) Real-time detection validation.",
+			"reasoning": "NLP implementation is complex, involving multiple technical and integration steps."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "Build Readiness Score ML Pipeline",
+			"complexityScore": 7,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Split into: 1) Data preparation and feature engineering, 2) Model training, 3) API implementation, 4) Model evaluation and testing.",
+			"reasoning": "ML pipelines require distinct phases from data handling to deployment."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Set Up WebSocket Infrastructure",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break into: 1) Backend WebSocket setup, 2) Frontend integration, 3) Redis caching implementation.",
+			"reasoning": "WebSocket setup involves both backend and frontend components, plus caching."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "Develop Peer Matching Algorithm",
+			"complexityScore": 6,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Divide into: 1) Algorithm design, 2) Implementation, 3) Anonymity and privacy testing.",
+			"reasoning": "Algorithm development and privacy checks are critical and separable."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "Implement Real-Time Chat System",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Split into: 1) WebSocket messaging, 2) Message persistence, 3) Moderation features.",
+			"reasoning": "Chat systems require messaging, storage, and moderation components."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "Integrate Economic Indicators",
+			"complexityScore": 4,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break into: 1) API integration, 2) Data storage and analysis, 3) Alert implementation.",
+			"reasoning": "Economic data integration involves API calls, processing, and alerting."
+		},
+		{
+			"taskId": 11,
+			"taskTitle": "Build Timing Optimization Engine",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Divide into: 1) Correlation analysis, 2) Prediction model implementation, 3) Alert testing.",
+			"reasoning": "Timing prediction involves analysis, modeling, and validation."
+		},
+		{
+			"taskId": 12,
+			"taskTitle": "Develop B2B Dashboard UI",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Split into: 1) Chart implementation, 2) Dashboard builder, 3) Responsive design, 4) Data visualization testing.",
+			"reasoning": "Dashboard development includes UI components and responsiveness checks."
+		},
+		{
+			"taskId": 13,
+			"taskTitle": "Implement Anonymized Salary Analysis",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break into: 1) Data aggregation, 2) Anonymization, 3) API endpoint testing.",
+			"reasoning": "Salary analysis requires data handling and privacy measures."
+		},
+		{
+			"taskId": 14,
+			"taskTitle": "Set Up Content Moderation",
+			"complexityScore": 4,
+			"recommendedSubtasks": 2,
+			"expansionPrompt": "Divide into: 1) Automated moderation setup, 2) Manual review workflow implementation.",
+			"reasoning": "Moderation involves both automated and manual processes."
+		},
+		{
+			"taskId": 15,
+			"taskTitle": "Develop Achievement System",
+			"complexityScore": 3,
+			"recommendedSubtasks": 2,
+			"expansionPrompt": "Split into: 1) Criteria and rewards definition, 2) Tracking and notifications.",
+			"reasoning": "Achievement systems need clear criteria and notification mechanisms."
+		},
+		{
+			"taskId": 16,
+			"taskTitle": "Integrate Voice Features",
+			"complexityScore": 4,
+			"recommendedSubtasks": 2,
+			"expansionPrompt": "Break into: 1) Voice command integration, 2) Voice-to-text implementation.",
+			"reasoning": "Voice features involve command handling and text conversion."
+		},
+		{
+			"taskId": 17,
+			"taskTitle": "Implement 3D Visualizations",
+			"complexityScore": 5,
+			"recommendedSubtasks": 2,
+			"expansionPrompt": "Divide into: 1) 3D chart setup, 2) Dashboard integration.",
+			"reasoning": "3D visualization requires chart creation and UI integration."
+		},
+		{
+			"taskId": 18,
+			"taskTitle": "Set Up API Key Rotation",
+			"complexityScore": 3,
+			"recommendedSubtasks": 2,
+			"expansionPrompt": "Split into: 1) Key rotation implementation, 2) Caching setup.",
+			"reasoning": "Key rotation and caching are separable tasks."
+		},
+		{
+			"taskId": 19,
+			"taskTitle": "Develop User Feedback System",
+			"complexityScore": 4,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break into: 1) Feedback form creation, 2) Analytics dashboard, 3) Backend integration.",
+			"reasoning": "Feedback systems need forms, analytics, and backend support."
+		},
+		{
+			"taskId": 20,
+			"taskTitle": "Implement GDPR Compliance",
+			"complexityScore": 7,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Divide into: 1) Data collection review, 2) Storage compliance, 3) Consent workflows, 4) Audit and validation.",
+			"reasoning": "GDPR compliance requires thorough review and implementation."
+		},
+		{
+			"taskId": 21,
+			"taskTitle": "Set Up Load Testing",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Split into: 1) Test environment setup, 2) Simulation execution, 3) Performance analysis.",
+			"reasoning": "Load testing involves setup, execution, and analysis phases."
+		},
+		{
+			"taskId": 22,
+			"taskTitle": "Develop B2B Onboarding",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break into: 1) Signup flow, 2) Payment integration, 3) Dashboard setup, 4) Enterprise feature support.",
+			"reasoning": "Onboarding involves multiple customer-facing workflows."
+		},
+		{
+			"taskId": 23,
+			"taskTitle": "Implement Revenue Tracking",
+			"complexityScore": 4,
+			"recommendedSubtasks": 2,
+			"expansionPrompt": "Divide into: 1) Payment integration, 2) Revenue analytics.",
+			"reasoning": "Revenue tracking requires payment handling and analytics."
+		},
+		{
+			"taskId": 24,
+			"taskTitle": "Develop Fallback Mechanisms",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Split into: 1) Fallback strategy design, 2) Implementation, 3) Failure simulation testing.",
+			"reasoning": "Fallbacks need planning, implementation, and validation."
+		},
+		{
+			"taskId": 25,
+			"taskTitle": "Prepare Alpha Testing",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break into: 1) User selection, 2) Test environment preparation, 3) Feedback tools setup, 4) Monitoring plan.",
+			"reasoning": "Alpha testing requires careful preparation and monitoring."
+		}
+	]
+}

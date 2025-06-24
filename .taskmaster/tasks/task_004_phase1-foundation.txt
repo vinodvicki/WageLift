@@ -1,0 +1,11 @@
+# Task ID: 4
+# Title: CPI Fetch Cron Job
+# Status: pending
+# Dependencies: 1, 3
+# Priority: medium
+# Description: Implement a cron job to fetch and cache CPI data from the BLS API.
+# Details:
+Use Python's `requests` library to fetch CPI data from BLS API (series CUSR0000SA0). Store data in PostgreSQL. Schedule the job using Celery or a similar task scheduler.
+
+# Test Strategy:
+Verify data fetch and storage. Test cron job execution and error handling.

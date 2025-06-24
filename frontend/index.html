@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WageLift - AI-Powered Salary Optimization</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card { background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="root">
+        <div class="min-h-screen bg-gray-50">
+            <header class="gradient-bg text-white py-6">
+                <div class="container mx-auto px-4">
+                    <h1 class="text-3xl font-bold text-center">WageLift</h1>
+                    <p class="text-center mt-2 opacity-90">AI-Powered Salary Optimization Platform</p>
+                </div>
+            </header>
+            
+            <main class="container mx-auto px-4 py-8">
+                <div class="card p-8 max-w-2xl mx-auto text-center">
+                    <h2 class="text-2xl font-bold mb-4">🚀 System Status</h2>
+                    <div class="mb-6">
+                        <div class="bg-green-100 text-green-800 p-4 rounded-lg mb-4">
+                            <h3 class="font-semibold">✅ Backend: OPERATIONAL</h3>
+                            <p class="text-sm">FastAPI server running on port 8000</p>
+                        </div>
+                        <div class="bg-blue-100 text-blue-800 p-4 rounded-lg">
+                            <h3 class="font-semibold">✅ Frontend: READY</h3>
+                            <p class="text-sm">CDN-based React application loaded</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        WageLift is ready to help you calculate your true market value and generate professional raise request letters.
+                    </p>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html> 

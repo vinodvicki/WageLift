@@ -1,0 +1,184 @@
+# WageLift Product Requirements Document
+
+## Overview
+**WageLift** is an AI-powered web/mobile platform that helps US employees quantify the **purchasing-power loss** of their salary due to inflation and craft **evidence-based raise requests**.
+
+**Problem:** Real wages are not keeping up with CPI, yet most workers lack the data or confidence to negotiate effectively.
+
+**Audience:** Salaried or hourly employees (25-45 y/o) in knowledge and service sectors; later, HR teams.
+
+**Value:** WageLift turns vague cost-of-living frustration into hard numbers and a polished negotiation brief—boosting employee earnings and aiding HR retention.
+
+## Core Features
+
+### Inflation Gap Calculator
+- **What it does:** Computes % and $ salary erosion since last raise
+- **Why it matters:** Quantifies hidden pay cut
+- **How it works:** Pull CPI series from BLS API; adjust past salary → today's value
+
+### Market Pay Benchmark
+- **What it does:** Shows user's salary vs. local percentiles
+- **Why it matters:** Adds external proof for raises
+- **How it works:** Query CareerOneStop / Payscale API by title & ZIP
+
+### Raise-Request Generator
+- **What it does:** Drafts a professional, data-cited email / PDF
+- **Why it matters:** Removes writing friction; standardizes tone
+- **How it works:** Feed user data into GPT prompt; output editable doc
+
+### Dashboard & History
+- **What it does:** Visualizes CPI gap, benchmarks, and past requests
+- **Why it matters:** Tracks progress; drives re-engagement
+- **How it works:** React charts + Postgres history
+
+### (Optional) Payroll Sync
+- **What it does:** Imports pay stubs to auto-update salary
+- **Why it matters:** Streamlines data entry, increases trust
+- **How it works:** OAuth with Gusto / ADP; store tokens securely
+
+## User Experience
+
+### Personas
+1. **Alicia (29, Software Engineer)** – Tech-savvy, inflation-aware, wants a concrete raise number
+2. **Carlos (42, Retail Manager)** – Limited time, needs simple guidance on under-market pay
+
+### Key User Flow
+1. **Sign-up / OAuth**
+2. **Enter salary + last raise date → (opt) Payroll link**
+3. **Results page**: CPI gap card + market percentile chart
+4. **Click "Generate Request" → AI letter preview → Edit / Send (email/PDF)**
+5. **Log outcome** → Dashboard updates
+
+### UI/UX Requirements
+- Mobile-first, single-column wizard
+- Color-coded "gap" gauge (green → red)
+- Tooltips explaining CPI & data sources
+- Accessibility AA (contrast, keyboard nav)
+
+## Technical Architecture
+
+### Frontend
+- **Next.js** + Tailwind CSS
+- React Native (Expo) for mobile
+
+### Backend API
+- **FastAPI (Python)**
+- JWT authentication via **Auth0**
+
+### Database
+- **PostgreSQL** on Supabase
+
+### External Data Sources
+- BLS CPI API
+- CareerOneStop / Payscale wage API
+- Optional Gusto payroll integration
+
+### AI/LLM
+- OpenAI GPT-4 Turbo for raise request drafting
+
+### Infrastructure
+- Docker containerization
+- GitHub Actions CI/CD
+- Vercel (frontend) + Railway (backend)
+- Cloudflare proxy
+
+### Core Data Models
+- **User**: id, email, hashed_pw, job_title, zip
+- **SalaryEntry**: id, user_id, amount, effective_date, source
+- **Benchmark**: id, user_id, occupation_code, median, p25, p75, fetched_at
+- **RaiseRequest**: id, user_id, created_at, html_content, status
+- **CPI**: date, index_value (cached)
+
+## Development Roadmap
+
+### Phase 0: Foundation
+- Auth system setup
+- PostgreSQL schema design
+- CPI fetch cron job
+
+### Phase 1: MVP
+- Salary form interface
+- CPI gap calculation
+- Simple results page
+- Static raise-letter template
+
+### Phase 2: Benchmark Integration
+- Integrate salary API
+- Display local percentiles
+- Enhanced results visualization
+
+### Phase 3: AI Letter Generation
+- GPT prompt service
+- Editable UI for letters
+- PDF/email send functionality
+
+### Phase 4: Mobile Shell
+- React Native dashboard
+- Mobile raise request generator
+
+### Phase 5: Payroll Sync
+- Gusto OAuth integration
+- Auto salary refresh functionality
+
+### Phase 6: Employer Portal
+- Role-based HR dashboard
+- Aggregated statistics
+
+### Phase 7: Enhancements
+- Success-probability ML
+- COLA alerts
+- Billing system
+- SOC 2 prep
+
+## Technical Dependencies
+
+1. **Auth + Database** → Foundation for all features
+2. **CPI fetcher + gap calculation** → Core value proposition
+3. **UI salary wizard** → User input collection
+4. **Results component** → First usable product
+5. **Salary benchmark API** → Market credibility
+6. **AI letter generator** → Complete negotiation workflow
+7. **Email/PDF send** → User action enablement
+8. **Mobile & integrations** → Scale and automation
+
+## Risk Mitigation
+
+### Data Reliability
+- **Risk:** CPI / salary API outage
+- **Mitigation:** Cache data; fallback to last-known values
+
+### AI Quality
+- **Risk:** LLM hallucinations
+- **Mitigation:** Embed numeric facts verbatim; include user edit step
+
+### Privacy & Security
+- **Risk:** Privacy concerns with salary data
+- **Mitigation:** Encrypt data; transparent policy; minimal retention
+
+### Development Bandwidth
+- **Risk:** Solo-founder bandwidth limitations
+- **Mitigation:** Scope MVP narrowly; leverage Cursor AI & no-code UI libs
+
+### Cost Management
+- **Risk:** API cost escalation
+- **Mitigation:** Start with free BLS/OES; add paid Payscale after traction
+
+## Technical Specifications
+
+### APIs and Integrations
+- **BLS CPI series CUSR0000SA0** – all-items CPI-U monthly JSON
+- **CareerOneStop Salaries API** – wage percentiles by SOC & location
+- **Gusto Embedded Payroll** – OAuth flow for compensation endpoints
+- **OpenAI GPT-4 Turbo** – Raise request generation
+
+### Security Requirements
+- JWT token-based authentication
+- Data encryption at rest and in transit
+- GDPR/CCPA compliance considerations
+- Secure OAuth token storage
+
+### Performance Requirements
+- Sub-2 second page load times
+- Real-time CPI calculations
+- Responsive mobile experience
+- 99.9% uptime target 

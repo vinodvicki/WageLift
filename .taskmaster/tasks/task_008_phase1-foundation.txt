@@ -1,0 +1,11 @@
+# Task ID: 8
+# Title: Static Raise-Letter Template
+# Status: pending
+# Dependencies: 5
+# Priority: low
+# Description: Create a static template for raise requests.
+# Details:
+Design a basic HTML template for raise requests. Include placeholders for user-specific data.
+
+# Test Strategy:
+Test template rendering with sample data.

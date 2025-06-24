@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Enterprise Component Layer */
+@layer components {
+  /* Button System */
+  .btn {
+    @apply inline-flex items-center justify-center px-8 py-4 font-semibold text-base leading-none rounded-lg border-none cursor-pointer transition-all duration-200 ease-out min-w-[120px] focus:outline-none focus:ring-4 focus:ring-primary-500/50;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg shadow-primary-500/35 hover:from-primary-600 hover:to-primary-700 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary-500/50;
+  }
+
+  .btn-accent {
+    @apply bg-gradient-to-r from-accent-500 to-orange-500 text-white shadow-lg shadow-accent-500/35 hover:from-orange-500 hover:to-red-500 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-accent-500/50;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-primary-600 border-2 border-gray-200 shadow-sm hover:bg-gray-50 hover:border-primary-600 hover:text-primary-700 hover:-translate-y-0.5;
+  }
+
+  .btn-large {
+    @apply px-10 py-5 text-lg font-bold;
+  }
+
+  /* Card System */
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 transition-all duration-300 overflow-hidden;
+  }
+
+  .card-elevated {
+    @apply shadow-xl shadow-gray-900/10 hover:-translate-y-1 hover:shadow-2xl hover:shadow-gray-900/15;
+  }
+
+  /* Navigation */
+  .navbar {
+    @apply bg-white/95 backdrop-blur-xl border-b border-gray-100 sticky top-0 z-50 transition-all duration-300;
+  }
+
+  .logo {
+    @apply flex items-center text-2xl font-bold text-gray-900 no-underline transition-all duration-200 hover:text-primary-600;
+  }
+
+  .logo:hover {
+    text-shadow: 0 2px 4px rgba(251, 191, 36, 0.3);
+    border-bottom: 2px solid #fbbf24;
+  }
+
+  .logo-icon {
+    @apply w-8 h-8 mr-3 bg-gradient-to-r from-primary-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold;
+  }
+
+  .nav-links a {
+    @apply text-gray-600 no-underline font-medium transition-all duration-200 relative hover:text-primary-600;
+  }
+
+  .nav-links a::after {
+    @apply content-[''] absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-200;
+  }
+
+  .nav-links a:hover::after {
+    @apply w-full;
+  }
+
+  /* Hero Section */
+  .hero-gradient {
+    @apply bg-gradient-to-br from-indigo-500 via-purple-600 to-purple-700 bg-400 animate-gradient-shift text-white relative overflow-hidden;
+  }
+
+  .hero-gradient::before {
+    @apply content-[''] absolute inset-0 bg-gradient-to-r from-white/10 via-white/5 to-white/10 pointer-events-none;
+  }
+
+  /* Feature Icons */
+  .feature-icon {
+    @apply w-16 h-16 bg-gradient-to-r from-primary-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl mb-6 mx-auto transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary-500/30;
+  }
+
+  /* Step Numbers */
+  .step-number {
+    @apply w-12 h-12 bg-gradient-to-r from-accent-500 to-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4 mx-auto relative;
+  }
+
+  .step-number::after {
+    @apply content-[''] absolute w-14 h-14 border-2 border-accent-500/30 rounded-full animate-pulse-ring;
+  }
+
+  /* Typography */
+  .heading-xl {
+    @apply text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight mb-6;
+  }
+
+  .heading-lg {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight mb-5;
+  }
+
+  .heading-md {
+    @apply text-2xl md:text-3xl font-semibold leading-tight mb-4;
+  }
+
+  .heading-sm {
+    @apply text-xl font-semibold leading-snug mb-3;
+  }
+
+  .text-lead {
+    @apply text-xl text-gray-600 leading-relaxed font-normal mb-8;
+  }
+
+  .text-body {
+    @apply text-base text-gray-700 leading-relaxed mb-4;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent-500 via-orange-500 to-red-500 bg-clip-text text-transparent;
+  }
+
+  /* Footer */
+  .footer {
+    @apply bg-gray-900 text-gray-300 pt-16 pb-8;
+  }
+
+  .footer h4 {
+    @apply text-white font-semibold mb-4;
+  }
+
+  .footer-links {
+    @apply text-gray-400 no-underline transition-colors duration-200 block mb-2 hover:text-primary-400;
+  }
+
+  .footer-bottom {
+    @apply border-t border-gray-700 mt-12 pt-8 text-center text-gray-500;
+  }
+}
+
+/* Custom Animations */
+@layer utilities {
+  .animate-gradient-shift {
+    background-size: 400% 400%;
+    animation: gradient-shift 12s ease-in-out infinite;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .animate-scale {
+    animation: scale 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Base Improvements */
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply font-sans antialiased text-gray-900 bg-white;
+  }
+} 

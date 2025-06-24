@@ -1,0 +1,11 @@
+# Task ID: 13
+# Title: PDF/Email Send Functionality
+# Status: pending
+# Dependencies: 12
+# Priority: medium
+# Description: Implement functionality to send raise requests as PDFs or emails.
+# Details:
+Use libraries like `pdf-lib` for PDF generation and Nodemailer for email sending. Integrate with the editable UI.
+
+# Test Strategy:
+Test PDF generation and email sending. Verify content accuracy.

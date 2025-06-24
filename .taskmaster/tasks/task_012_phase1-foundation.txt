@@ -1,0 +1,11 @@
+# Task ID: 12
+# Title: Editable Raise-Request UI
+# Status: pending
+# Dependencies: 11
+# Priority: medium
+# Description: Develop a UI for users to edit AI-generated raise requests.
+# Details:
+Create a React component for editing raise requests. Include a preview mode and save functionality.
+
+# Test Strategy:
+Test editing and saving functionality. Verify UI responsiveness.

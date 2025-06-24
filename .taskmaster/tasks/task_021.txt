@@ -1,0 +1,11 @@
+# Task ID: 21
+# Title: Set Up Load Testing
+# Status: pending
+# Dependencies: 7, 9
+# Priority: medium
+# Description: Configure load testing for real-time systems.
+# Details:
+Use tools like Locust to simulate high traffic. Test WebSocket and chat performance.
+
+# Test Strategy:
+Run load tests and analyze results. Optimize as needed.

@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Frontend (Development with hot reload)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+      - NEXT_PUBLIC_APP_URL=http://localhost:3000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+    depends_on:
+      - backend
+
+  # Backend (Development with hot reload)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - LOG_LEVEL=DEBUG
+      - POSTGRES_SERVER=postgres
+      - POSTGRES_USER=wagelift
+      - POSTGRES_PASSWORD=wagelift_dev_password
+      - POSTGRES_DB=wagelift_dev
+      - POSTGRES_PORT=5432
+      - REDIS_URL=redis://redis:6379/0
+      - SECRET_KEY=dev-secret-key-not-for-production
+      - ENABLE_DOCS=true
+      - ENABLE_REDOC=true
+    volumes:
+      - ./backend:/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - postgres
+      - redis
+
+  # PostgreSQL (Development)
+  postgres:
+    environment:
+      - POSTGRES_USER=wagelift
+      - POSTGRES_PASSWORD=wagelift_dev_password
+      - POSTGRES_DB=wagelift_dev
+    ports:
+      - "5432:5432"
+
+  # Redis (Development - no password)
+  redis:
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes 

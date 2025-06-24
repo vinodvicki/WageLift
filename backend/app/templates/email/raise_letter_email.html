@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Adjustment Request</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        .content {
+            padding: 30px 20px;
+        }
+        .greeting {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #374151;
+        }
+        .custom-message {
+            background-color: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 6px 6px 0;
+            font-style: italic;
+        }
+        .letter-content {
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 25px 0;
+            font-family: Georgia, 'Times New Roman', serif;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+        .attachment-notice {
+            background-color: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .attachment-icon {
+            width: 20px;
+            height: 20px;
+            fill: #0ea5e9;
+        }
+        .footer {
+            background-color: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+        }
+        .footer a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .powered-by {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e5e7eb;
+        }
+        .logo {
+            font-weight: 600;
+            color: #2563eb;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+            .content {
+                padding: 20px 15px;
+            }
+            .header {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📈 Salary Adjustment Request</h1>
+            <p>Professional compensation analysis and request</p>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Greeting -->
+            <div class="greeting">
+                <strong>Dear {{ manager_name }},</strong>
+            </div>
+
+            <!-- Custom Message (if provided) -->
+            {% if custom_message %}
+            <div class="custom-message">
+                {{ custom_message }}
+            </div>
+            {% endif %}
+
+            <!-- Introduction -->
+            <p>
+                I hope this message finds you well. {{ user_name }} has prepared a comprehensive salary adjustment request 
+                based on current market data and inflation analysis. Please find the detailed letter below.
+            </p>
+
+            <!-- Letter Content -->
+            <div class="letter-content">{{ letter_content }}</div>
+
+            <!-- PDF Attachment Notice -->
+            {% if include_pdf %}
+            <div class="attachment-notice">
+                <svg class="attachment-icon" viewBox="0 0 24 24">
+                    <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                </svg>
+                <div>
+                    <strong>PDF Attachment Included</strong><br>
+                    A formal PDF version of this letter is attached for your records and easy printing.
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Closing -->
+            <p>
+                This request is backed by comprehensive data analysis including inflation calculations from the 
+                U.S. Bureau of Labor Statistics and current market salary benchmarks. {{ user_name }} would 
+                appreciate the opportunity to discuss this request at your convenience.
+            </p>
+
+            <p>
+                Thank you for your time and consideration.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div>
+                <strong>{{ platform_name }}</strong> - AI-Powered Salary Analysis Platform<br>
+                Data sourced from U.S. Bureau of Labor Statistics & CareerOneStop API<br>
+                Generated on {{ sent_date }}
+            </div>
+            
+            <div class="powered-by">
+                <span class="logo">🚀 WageLift</span> - Empowering fair compensation through data-driven insights
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

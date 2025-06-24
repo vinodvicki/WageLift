@@ -1,0 +1,11 @@
+# Task ID: 7
+# Title: Set Up WebSocket Infrastructure
+# Status: pending
+# Dependencies: 2, 3, 4
+# Priority: high
+# Description: Implement WebSocket infrastructure for real-time updates.
+# Details:
+Use `websockets` library for backend. Integrate with frontend using `socket.io-client`. Implement Redis for caching.
+
+# Test Strategy:
+Test real-time message delivery and latency. Simulate concurrent users.

@@ -1,0 +1,11 @@
+# Task ID: 14
+# Title: React Native Dashboard
+# Status: pending
+# Dependencies: 7, 10
+# Priority: low
+# Description: Develop a mobile dashboard for WageLift using React Native.
+# Details:
+Use Expo to create a React Native app. Reuse components from the web dashboard where possible.
+
+# Test Strategy:
+Test mobile app functionality and performance.

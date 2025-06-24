@@ -1,0 +1,38 @@
+[
+  {
+    "scenario": "high_inflation_software_engineer",
+    "scenario_name": "High Inflation - Software Engineer",
+    "tone": "professional",
+    "length": "standard",
+    "success": true,
+    "letter_length": 2843,
+    "word_count": 428,
+    "cpi_validation": {
+      "current_salary_mentioned": true,
+      "adjusted_salary_mentioned": true,
+      "percentage_gap_accurate": false,
+      "dollar_gap_accurate": false,
+      "inflation_rate_accurate": true,
+      "years_elapsed_accurate": false
+    },
+    "benchmark_validation": {
+      "percentile_mentioned": true,
+      "market_position_mentioned": true,
+      "median_salary_mentioned": true,
+      "location_mentioned": true,
+      "job_title_mentioned": true
+    },
+    "cpi_accuracy": 50.0,
+    "benchmark_accuracy": 100.0,
+    "overall_accuracy": 75.0,
+    "generation_metadata": {
+      "model_used": "gpt-4-turbo-preview",
+      "tokens_used": 1061,
+      "generation_time": "2025-06-22T03:13:31.364786",
+      "prompt_tokens": 496,
+      "completion_tokens": 565
+    },
+    "letter_preview": "[Your Name]  \nAlice Johnson  \nSoftware Engineer  \nTechCorp Inc.  \n100 Tech Lane  \nSan Francisco, CA, 94103  \n\n[Date]  \n\n[Recipient Name]  \nDirector of Engineering  \nTechCorp Inc.  \n100 Tech Lane  \nSan...",
+    "letter_content": "[Your Name]  \nAlice Johnson  \nSoftware Engineer  \nTechCorp Inc.  \n100 Tech Lane  \nSan Francisco, CA, 94103  \n\n[Date]  \n\n[Recipient Name]  \nDirector of Engineering  \nTechCorp Inc.  \n100 Tech Lane  \nSan Francisco, CA, 94103  \n\nDear [Recipient Name],\n\nI hope this letter finds you well. I am writing to discuss my current compensation package in light of my ongoing contributions to TechCorp Inc., as well as recent economic changes and market benchmarks for my role. Since joining the team, I have been committed to not only fulfilling my responsibilities as a Software Engineer but also to exceeding expectations wherever possible.\n\nOver the past two years, I have led several key initiatives that have directly contributed to our team's success, including the development of a microservices architecture that reduced deployment time by 60%, and database optimizations that have decreased system latency by 40%. Additionally, I have had the pleasure of mentoring two junior developers, significantly enhancing our team's productivity and cohesion.\n\nDespite these contributions, an analysis of the current economic climate and market standards suggests that my compensation has not kept pace with industry benchmarks or inflationary pressures. Specifically, the inflation rate over the last two years has been 12.3%, which implies that my current salary of $85,000.00 now has the purchasing power equivalent to $74,500.00 when adjusted for inflation. To maintain parity with inflation alone, a salary adjustment to $98,500.00 would be required.\n\nFurthermore, according to data from CareerOneStop, the median salary for a Software Engineer in San Francisco is currently $95,000.00, with the 75th percentile earning $110,000.00. At my current salary, I am positioned in the 35th percentile, which is significantly below market rates for someone with my achievements and contributions.\n\nGiven these factors, I kindly request a review of my current compensation with consideration for an adjustment to align with the inflation-adjusted value of $98,500.00. This adjustment would not only reflect the increased cost of living but also recognize my contributions to our team and align my compensation more closely with market rates.\n\nI am deeply grateful for the opportunity to work at TechCorp Inc. and am eager to continue contributing to our projects and team goals. I believe that addressing this gap in compensation will allow me to focus even more on driving results and innovations for our team and TechCorp Inc. as a whole.\n\nMay we schedule a meeting to discuss this matter further? I am available at your convenience and look forward to your response.\n\nThank you for considering my request and for your continued support and leadership.\n\nSincerely,\n\nAlice Johnson  \nSoftware Engineer  \nTechCorp Inc.  \nalice.johnson@email.com  \n(123) 456-7890"
+  }
+]

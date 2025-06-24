@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WageLift - Enhanced Design System Demo</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#F0F4FF', 100: '#E0EAFF', 200: '#C7D8FF',
+                            300: '#A3C1FF', 400: '#7BA3FF', 500: '#4C5B9C',
+                            600: '#2B3A67', 700: '#1E2B4F', 800: '#141D37', 900: '#0A1020'
+                        },
+                        accent: {
+                            50: '#FFFBF0', 100: '#FFF5E0', 200: '#FFEBCC',
+                            300: '#FFD999', 400: '#FFCC66', 500: '#FFC857',
+                            600: '#E6B34F', 700: '#CC9E47', 800: '#B3893F', 900: '#997437'
+                        },
+                        neutral: {
+                            0: '#FFFFFF', 50: '#FAFAFA', 100: '#F5F5F5',
+                            200: '#E8E8E8', 300: '#E0E0E0', 400: '#C4C4C4',
+                            500: '#9CA3AF', 600: '#6B7280', 700: '#444444',
+                            800: '#1F2937', 900: '#111827'
+                        }
+                    },
+                    fontFamily: {
+                        headline: ['Georgia', 'serif'],
+                        body: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['Monaco', 'monospace']
+                    },
+                    fontSize: {
+                        'display-lg': 'clamp(3.75rem, 6vw, 4.5rem)',
+                        'heading-h1': 'clamp(2rem, 3vw, 3rem)',
+                        'heading-h2': 'clamp(1.75rem, 2.5vw, 2.25rem)'
+                    },
+                    animation: {
+                        'fade-in': 'fade-in 600ms ease-out',
+                        'slide-up': 'slide-up 600ms ease-out',
+                        'bounce-subtle': 'bounce-subtle 2s infinite'
+                    },
+                    keyframes: {
+                        'fade-in': { 'from': { opacity: '0' }, 'to': { opacity: '1' } },
+                        'slide-up': { 'from': { transform: 'translateY(20px)', opacity: '0' }, 'to': { transform: 'translateY(0)', opacity: '1' } },
+                        'bounce-subtle': { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-2px)' } }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .btn-primary {
+            @apply bg-accent-500 text-primary-700 font-semibold h-12 px-6 rounded-xl border border-accent-500 transition-all duration-200 hover:bg-accent-600 hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-accent-500 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+        }
+        
+        .card-enhanced {
+            @apply bg-white rounded-xl border border-neutral-300 p-8 shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-1;
+        }
+        
+        .nav-backdrop {
+            background-color: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-neutral-50 font-body">
+    <!-- Enhanced Navigation -->
+    <nav class="sticky top-0 z-50 h-20 nav-backdrop border-b border-neutral-200">
+        <div class="container mx-auto px-4 h-full flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-accent-500 rounded-lg flex items-center justify-center">
+                    <span class="text-primary-700 font-bold text-xl">W</span>
+                </div>
+                <span class="font-headline font-bold text-xl text-primary-600">WageLift</span>
+            </div>
+            
+            <!-- Navigation Links -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#features" class="text-neutral-700 hover:text-primary-600 font-medium transition-colors">Features</a>
+                <a href="#how-it-works" class="text-neutral-700 hover:text-primary-600 font-medium transition-colors">How It Works</a>
+                <a href="#pricing" class="text-neutral-700 hover:text-primary-600 font-medium transition-colors">Pricing</a>
+                <button class="btn-primary inline-flex items-center">
+                    Calculate My Gap
+                </button>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden p-2">
+                <svg class="w-6 h-6 text-neutral-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Enhanced Hero Section -->
+    <section class="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-primary-600 to-primary-800">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]"></div>
+        </div>
+        
+        <!-- Content -->
+        <div class="relative container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="text-white space-y-8 animate-fade-in">
+                    <h1 class="text-display-lg font-headline font-bold leading-tight">
+                        Quantify Your Worth, <span class="text-accent-400">Reclaim Your Value</span>
+                    </h1>
+                    <p class="text-xl lg:text-2xl text-primary-100 leading-relaxed">
+                        Stop leaving money on the table. Our AI-powered platform analyzes inflation, market data, and your unique value to craft compelling raise requests that get results.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="btn-primary text-lg px-8 py-4 h-14">
+                            Start Your Analysis
+                        </button>
+                        <button class="border-2 border-accent-400 text-accent-400 bg-transparent hover:bg-accent-400 hover:text-primary-700 font-semibold h-14 px-8 rounded-xl transition-all duration-200">
+                            Watch Demo
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-6 text-primary-200 text-sm">
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Free Analysis</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>No Credit Card</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-accent-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>2-Minute Setup</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Illustration/Dashboard Preview -->
+                <div class="relative animate-slide-up">
+                    <div class="bg-white rounded-2xl shadow-2xl p-6 transform rotate-2 hover:rotate-0 transition-transform duration-500">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-semibold text-neutral-900">Your Wage Gap Analysis</h3>
+                                <span class="bg-accent-100 text-accent-700 px-3 py-1 rounded-full text-sm font-medium">Ready</span>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="bg-neutral-50 rounded-lg p-4">
+                                    <div class="text-sm text-neutral-600 mb-1">Inflation-Adjusted Gap</div>
+                                    <div class="text-2xl font-bold text-semantic-error-500">$8,340</div>
+                                </div>
+                                <div class="bg-neutral-50 rounded-lg p-4">
+                                    <div class="text-sm text-neutral-600 mb-1">Market Position</div>
+                                    <div class="text-2xl font-bold text-primary-600">Below 25th percentile</div>
+                                </div>
+                                <div class="bg-accent-50 rounded-lg p-4">
+                                    <div class="text-sm text-accent-700 mb-1">Recommended Ask</div>
+                                    <div class="text-2xl font-bold text-accent-700">$12,500 raise</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-heading-h1 font-headline font-bold text-neutral-900 mb-4">
+                    Everything You Need to Win Your Raise
+                </h2>
+                <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+                    Our comprehensive platform combines real-time data, AI analysis, and proven negotiation strategies to maximize your earning potential.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="card-enhanced group">
+                    <div class="w-16 h-16 bg-accent-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent-200 transition-colors">
+                        <svg class="w-8 h-8 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 mb-3">Real-Time Market Data</h3>
+                    <p class="text-neutral-600 leading-relaxed">
+                        Access live salary benchmarks from CareerOneStop and BLS data to understand exactly where you stand in the market.
+                    </p>
+                </div>
+                
+                <!-- Feature Card 2 -->
+                <div class="card-enhanced group">
+                    <div class="w-16 h-16 bg-primary-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary-200 transition-colors">
+                        <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 mb-3">AI-Powered Analysis</h3>
+                    <p class="text-neutral-600 leading-relaxed">
+                        Our GPT-4 integration analyzes your role, experience, and market conditions to identify your true earning potential.
+                    </p>
+                </div>
+                
+                <!-- Feature Card 3 -->
+                <div class="card-enhanced group">
+                    <div class="w-16 h-16 bg-semantic-success-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-semantic-success-200 transition-colors">
+                        <svg class="w-8 h-8 text-semantic-success-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-neutral-900 mb-3">Inflation Calculator</h3>
+                    <p class="text-neutral-600 leading-relaxed">
+                        Calculate how inflation has eroded your purchasing power and build a compelling case for cost-of-living adjustments.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-primary-600">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-heading-h1 font-headline font-bold text-white mb-4">
+                Ready to Get What You're Worth?
+            </h2>
+            <p class="text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+                Join thousands of professionals who have successfully negotiated raises using our platform.
+            </p>
+            <button class="btn-primary text-lg px-8 py-4 h-14 mx-auto">
+                Start Your Free Analysis
+            </button>
+        </div>
+    </section>
+
+    <!-- Component Showcase -->
+    <section class="py-20 bg-neutral-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-heading-h1 font-headline font-bold text-neutral-900 mb-12 text-center">
+                Design System Components
+            </h2>
+            
+            <!-- Button Variants -->
+            <div class="mb-12">
+                <h3 class="text-heading-h3 font-semibold text-neutral-900 mb-6">Button Variants</h3>
+                <div class="flex flex-wrap gap-4">
+                    <button class="btn-primary">Primary Button</button>
+                    <button class="bg-primary-600 text-white font-semibold h-12 px-6 rounded-xl border border-primary-600 hover:bg-primary-700 hover:scale-105 transition-all duration-200">Secondary</button>
+                    <button class="border-2 border-accent-500 text-accent-600 bg-transparent hover:bg-accent-500 hover:text-primary-700 font-semibold h-12 px-6 rounded-xl transition-all duration-200">Outline</button>
+                    <button class="text-primary-600 bg-transparent hover:bg-primary-50 font-semibold h-12 px-6 rounded-xl transition-all duration-200">Ghost</button>
+                </div>
+            </div>
+            
+            <!-- Input Examples -->
+            <div class="mb-12">
+                <h3 class="text-heading-h3 font-semibold text-neutral-900 mb-6">Form Elements</h3>
+                <div class="grid md:grid-cols-2 gap-6 max-w-2xl">
+                    <div>
+                        <label class="block text-sm font-medium text-neutral-700 mb-2">Current Salary</label>
+                        <input type="text" placeholder="$75,000" class="w-full h-12 px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-neutral-700 mb-2">Job Title</label>
+                        <input type="text" placeholder="Senior Developer" class="w-full h-12 px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cards -->
+            <div>
+                <h3 class="text-heading-h3 font-semibold text-neutral-900 mb-6">Card Components</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="card-enhanced">
+                        <h4 class="font-semibold text-neutral-900 mb-2">Basic Card</h4>
+                        <p class="text-neutral-600">This is a basic card component with hover effects and proper spacing.</p>
+                    </div>
+                    <div class="card-enhanced">
+                        <div class="w-12 h-12 bg-accent-100 rounded-lg flex items-center justify-center mb-4">
+                            <span class="text-accent-600 font-bold">$</span>
+                        </div>
+                        <h4 class="font-semibold text-neutral-900 mb-2">Icon Card</h4>
+                        <p class="text-neutral-600">Card with icon and enhanced visual hierarchy.</p>
+                    </div>
+                    <div class="card-enhanced">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="font-semibold text-neutral-900">Stats Card</h4>
+                            <span class="bg-semantic-success-100 text-semantic-success-700 px-2 py-1 rounded text-sm">+12%</span>
+                        </div>
+                        <p class="text-2xl font-bold text-neutral-900">$8,340</p>
+                        <p class="text-neutral-600 text-sm">Potential increase</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Load Enhanced Components -->
+    <script src="../src/components/ui/enhanced-button.js"></script>
+    
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all cards
+        document.querySelectorAll('.card-enhanced').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,11 @@
+# Task ID: 6
+# Title: CPI Gap Calculation
+# Status: pending
+# Dependencies: 3, 4, 5
+# Priority: high
+# Description: Implement backend logic to calculate the inflation gap for a user's salary.
+# Details:
+Use cached CPI data to adjust the user's past salary to today's value. Calculate the percentage and dollar gap. Expose this via a FastAPI endpoint.
+
+# Test Strategy:
+Test calculations with sample data. Verify endpoint responses.
