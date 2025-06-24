@@ -10,9 +10,7 @@ from pydantic import (
     AnyHttpUrl,
     EmailStr,
     HttpUrl,
-    PostgresDsn,
-    RedisDsn,
-    validator,
+    field_validator,
     Field,
 )
 from pydantic_settings import BaseSettings
@@ -43,7 +41,8 @@ class Settings(BaseSettings):
     # CORS Configuration
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
 
-    @validator("BACKEND_CORS_ORIGINS", pre=True)
+    @field_validator("BACKEND_CORS_ORIGINS", mode="before")
+    @classmethod
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
         if isinstance(v, str) and not v.startswith("["):
             return [i.strip() for i in v.split(",")]
@@ -59,11 +58,13 @@ class Settings(BaseSettings):
     POSTGRES_PORT: int = 5432
     SQLALCHEMY_DATABASE_URI: Optional[str] = "sqlite:///./wagelift_dev.db"
 
-    @validator("SQLALCHEMY_DATABASE_URI", pre=True)
-    def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+    @field_validator("SQLALCHEMY_DATABASE_URI", mode="before")
+    @classmethod
+    def assemble_db_connection(cls, v: Optional[str], info) -> Any:
         if isinstance(v, str):
             return v
         # Use SQLite for local development if PostgreSQL not configured
+        values = info.data if hasattr(info, 'data') else {}
         if not values.get("POSTGRES_SERVER"):
             return "sqlite:///./wagelift_dev.db"
         # Build PostgreSQL connection string manually
@@ -134,7 +135,7 @@ class Settings(BaseSettings):
     SMTP_HOST: Optional[str] = None
     SMTP_USER: Optional[str] = None
     SMTP_PASSWORD: Optional[str] = None
-    EMAILS_FROM_EMAIL: Optional[EmailStr] = None
+    EMAILS_FROM_EMAIL: Optional[str] = None  # Removed EmailStr to avoid dependency
     EMAILS_FROM_NAME: Optional[str] = None
     
     # File Upload Configuration
@@ -163,26 +164,13 @@ class Settings(BaseSettings):
     REDOC_URL: str = "/redoc"
     OPENAPI_URL: str = "/openapi.json"
 
-    class Config:
-        """Pydantic configuration."""
-        
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = True
-        validate_assignment = True
-        
-        # Environment variable prefixes
-        env_prefix = ""
-        
-        # Field configurations for sensitive data
-        fields = {
-            "SECRET_KEY": {"description": "Secret key for JWT tokens"},
-            "POSTGRES_PASSWORD": {"description": "Database password"},
-            "AUTH0_CLIENT_SECRET": {"description": "Auth0 client secret"},
-            "OPENAI_API_KEY": {"description": "OpenAI API key"},
-            "BLS_API_KEY": {"description": "Bureau of Labor Statistics API key"},
-            "GUSTO_CLIENT_SECRET": {"description": "Gusto OAuth client secret"},
-        }
+    model_config = {
+        "env_file": ".env",
+        "env_file_encoding": "utf-8",
+        "case_sensitive": True,
+        "validate_assignment": True,
+        "extra": "ignore"
+    }
 
 
 # Create global settings instance
