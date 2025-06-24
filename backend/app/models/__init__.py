@@ -1,25 +1,22 @@
 """
-Database models for WageLift Backend.
+Model imports for WageLift application.
 
-Contains all SQLAlchemy ORM models for the application.
+This module handles all model imports and provides a centralized
+access point for database models.
 """
 
-from app.models.user import User, GustoToken
-from app.models.salary_entry import SalaryEntry
-from app.models.benchmark import Benchmark
-from app.models.raise_request import RaiseRequest
-from app.models.cpi_data import CPIData
-from app.models.editor import RaiseLetter, RaiseLetterVersion, RaiseLetterTemplate, RaiseLetterShare
+# Import Base from database first to avoid circular imports
+from app.core.database import Base
 
+# Import all models
+from .user import User
+from .salary_entry import SalaryEntry
+from .benchmark import Benchmark
+
+# Export all models
 __all__ = [
-    "User",
-    "SalaryEntry", 
-    "Benchmark",
-    "RaiseRequest",
-    "CPIData",
-    "RaiseLetter",
-    "RaiseLetterVersion",
-    "RaiseLetterTemplate",
-    "RaiseLetterShare",
-    "GustoToken",
+    "Base",
+    "User", 
+    "SalaryEntry",
+    "Benchmark"
 ] 

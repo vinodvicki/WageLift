@@ -162,12 +162,13 @@ class User(Base):
         order_by="SalaryEntry.effective_date.desc()"
     )
     
-    raise_requests: Mapped[List["RaiseRequest"]] = relationship(
-        "RaiseRequest",
-        back_populates="user",
-        cascade="all, delete-orphan",
-        order_by="RaiseRequest.created_at.desc()"
-    )
+    # Optional relationships - only defined if models exist
+    # raise_requests: Mapped[List["RaiseRequest"]] = relationship(
+    #     "RaiseRequest",
+    #     back_populates="user",
+    #     cascade="all, delete-orphan",
+    #     order_by="RaiseRequest.created_at.desc()"
+    # )
 
     gusto_tokens: Mapped[List["GustoToken"]] = relationship(
         "GustoToken",

@@ -12,7 +12,7 @@ import structlog
 
 from sqlalchemy import create_engine, event, text
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
-from sqlalchemy.orm import DeclarativeBase, sessionmaker, Session
+from sqlalchemy.orm import DeclarativeBase, sessionmaker, Session, declarative_base
 from sqlalchemy.exc import SQLAlchemyError, OperationalError, DatabaseError as SQLDatabaseError
 from sqlalchemy.pool import Pool
 
@@ -35,12 +35,14 @@ logger = structlog.get_logger(__name__)
 def _import_models():
     """Import all models to register them with SQLAlchemy."""
     try:
-        from app.models import User, SalaryEntry, Benchmark, RaiseRequest, CPIData  # noqa: F401
+        from app.models.user import User  # noqa: F401
+        from app.models.salary_entry import SalaryEntry  # noqa: F401
+        from app.models.benchmark import Benchmark  # noqa: F401
         logger.info("Database models imported successfully")
     except ImportError as e:
         logger.warning("Some models might not be available during initial setup", error=str(e))
 
-_import_models()
+# Don't call _import_models() here to avoid circular imports
 
 
 class Base(DeclarativeBase):
@@ -294,7 +296,7 @@ def init_db() -> None:
     """
     try:
         # Import models to ensure they're registered with SQLAlchemy
-        from app.models import User, SalaryEntry, Benchmark, RaiseRequest, CPIData  # noqa: F401
+        _import_models()
         
         # Create checkpoint before initialization
         create_checkpoint({"operation": "init_db", "timestamp": time.time()}, "db_init")
@@ -322,7 +324,7 @@ async def init_async_db() -> None:
     """
     try:
         # Import models to ensure they're registered with SQLAlchemy
-        from app.models import User, SalaryEntry, Benchmark, RaiseRequest, CPIData  # noqa: F401
+        _import_models()
         
         # Create checkpoint before initialization
         create_checkpoint({"operation": "init_async_db", "timestamp": time.time()}, "async_db_init")

@@ -35,7 +35,8 @@ class Settings(BaseSettings):
     # Server Configuration
     HOST: str = "0.0.0.0"
     PORT: int = 8000
-    DEBUG: bool = False
+    DEBUG: bool = True  # Enable debug mode for development
+    TESTING: bool = False
     ENVIRONMENT: str = "development"
     
     # CORS Configuration

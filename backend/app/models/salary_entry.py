@@ -160,11 +160,11 @@ class SalaryEntry(Base):
         back_populates="salary_entries"
     )
     
-    raise_requests: Mapped[List["RaiseRequest"]] = relationship(
-        "RaiseRequest",
-        back_populates="current_salary",
-        cascade="all, delete-orphan"
-    )
+    # raise_requests: Mapped[List["RaiseRequest"]] = relationship(
+    #     "RaiseRequest",
+    #     back_populates="current_salary",
+    #     cascade="all, delete-orphan"
+    # )
 
     # Table constraints
     __table_args__ = (

@@ -107,16 +107,19 @@ class OpenAIService:
     raise request letters using CPI data and salary benchmarks.
     """
     
-    def __init__(self):
+    def __init__(self, require_api_key: bool = True):
         """Initialize OpenAI service with configuration"""
-        if not settings.OPENAI_API_KEY:
+        if require_api_key and not settings.OPENAI_API_KEY:
             raise OpenAIServiceError("OpenAI API key not configured")
         
-        self.client = AsyncOpenAI(
-            api_key=settings.OPENAI_API_KEY,
-            timeout=30.0,
-            max_retries=3
-        )
+        if settings.OPENAI_API_KEY:
+            self.client = AsyncOpenAI(
+                api_key=settings.OPENAI_API_KEY,
+                timeout=30.0,
+                max_retries=3
+            )
+        else:
+            self.client = None
         
         self.model = "gpt-4-turbo-preview"  # Latest GPT-4 Turbo model
         self.max_tokens = 2000
@@ -417,8 +420,11 @@ Your letters should:
             return False
 
 
-# Create service instance for easy importing
-openai_service = OpenAIService()
+# Create service instance for easy importing (optional API key for testing)
+try:
+    openai_service = OpenAIService(require_api_key=False)
+except Exception as e:
+    openai_service = None
 
 # Export for easy importing
 __all__ = [

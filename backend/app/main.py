@@ -27,17 +27,33 @@ from app.core.database import engine, async_engine
 from app.core.logging import setup_structured_logging, get_logger, RequestContext
 from app.core.metrics import metrics_collector
 
-# Metrics
-REQUEST_COUNT = Counter(
-    'http_requests_total', 
-    'Total HTTP requests', 
-    ['method', 'endpoint', 'status']
-)
-REQUEST_DURATION = Histogram(
-    'http_request_duration_seconds',
-    'HTTP request duration in seconds',
-    ['method', 'endpoint']
-)
+# Metrics (with duplicate protection)
+try:
+    from prometheus_client import REGISTRY, CollectorRegistry
+    
+    # Create a fresh registry for this app instance to avoid conflicts
+    app_registry = CollectorRegistry()
+    
+    REQUEST_COUNT = Counter(
+        'wagelift_http_requests_total', 
+        'Total HTTP requests', 
+        ['method', 'endpoint', 'status'],
+        registry=app_registry
+    )
+    
+    REQUEST_DURATION = Histogram(
+        'wagelift_http_request_duration_seconds',
+        'HTTP request duration in seconds',
+        ['method', 'endpoint'],
+        registry=app_registry
+    )
+        
+except Exception as e:
+    # Use print since logger might not be initialized yet
+    print(f"Metrics setup warning: {e}")
+    # Fallback to None to disable metrics
+    REQUEST_COUNT = None
+    REQUEST_DURATION = None
 
 # Rate limiter
 limiter = Limiter(key_func=get_remote_address)
@@ -95,11 +111,11 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
 
-# Add security middleware
-if not settings.DEBUG:
+# Add security middleware (but not during testing)
+if not settings.DEBUG and not settings.TESTING:
     app.add_middleware(
         TrustedHostMiddleware,
-        allowed_hosts=["wagelift.com", "*.wagelift.com", "localhost"]
+        allowed_hosts=["wagelift.com", "*.wagelift.com", "localhost", "testserver"]
     )
 
 # Add CORS middleware
@@ -148,17 +164,19 @@ async def log_requests(request: Request, call_next) -> Response:
     # Calculate duration
     duration = time.time() - start_time
     
-    # Update metrics
-    REQUEST_COUNT.labels(
-        method=request.method,
-        endpoint=request.url.path,
-        status=response.status_code
-    ).inc()
+    # Update metrics (if available)
+    if REQUEST_COUNT:
+        REQUEST_COUNT.labels(
+            method=request.method,
+            endpoint=request.url.path,
+            status=response.status_code
+        ).inc()
     
-    REQUEST_DURATION.labels(
-        method=request.method,
-        endpoint=request.url.path
-    ).observe(duration)
+    if REQUEST_DURATION:
+        REQUEST_DURATION.labels(
+            method=request.method,
+            endpoint=request.url.path
+        ).observe(duration)
     
     # Log request
     logger.info(
