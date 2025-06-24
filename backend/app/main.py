@@ -39,8 +39,11 @@ REQUEST_DURATION = Histogram(
     ['method', 'endpoint']
 )
 
-# Rate limiter
-limiter = Limiter(key_func=get_remote_address)
+# Rate limiter - Configure with proper limits
+limiter = Limiter(
+    key_func=get_remote_address,
+    default_limits=[f"{settings.RATE_LIMIT_PER_MINUTE}/minute"]
+)
 
 # Logger
 logger = structlog.get_logger(__name__)
@@ -197,7 +200,8 @@ async def add_security_headers(request: Request, call_next) -> Response:
 
 # Health check endpoint
 @app.get("/health", tags=["Health"])
-async def health_check():
+@limiter.limit("100/minute")  # Allow health checks but with reasonable limits
+async def health_check(request: Request):
     """
     Health check endpoint for load balancers and monitoring.
     """
@@ -212,7 +216,8 @@ async def health_check():
 
 # Metrics endpoint (for Prometheus)
 @app.get("/metrics", tags=["Monitoring"])
-async def metrics():
+@limiter.limit("60/minute")  # Reasonable limit for monitoring
+async def metrics(request: Request):
     """
     Prometheus metrics endpoint.
     """
@@ -227,7 +232,8 @@ async def metrics():
 
 # Root endpoint
 @app.get("/", tags=["Root"])
-async def root():
+@limiter.limit("30/minute")  # More restrictive for general endpoint
+async def root(request: Request):
     """
     Root endpoint with basic API information.
     """
