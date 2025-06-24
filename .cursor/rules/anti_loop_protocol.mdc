@@ -1,0 +1,114 @@
+# Anti-Loop Protocol
+
+This protocol prevents getting stuck in repetitive loops when solving problems.
+
+## 🚨 MANDATORY PROCESS - VERIFY → PLAN → EXECUTE → CONFIRM
+
+### 1. STATE VERIFICATION (Always First)
+**BEFORE any action, ALWAYS:**
+- ✅ Test current state with simple commands
+- ✅ Document what IS working vs what ISN'T working
+- ✅ Set clear success criteria (what does "fixed" look like?)
+- ✅ Identify the EXACT problem, not assumptions
+
+**Example:**
+```bash
+# Good: Verify current state first
+curl -I http://localhost:8000  # Test if server responds
+curl -I http://localhost:3000  # Test frontend
+
+# Bad: Assume something is broken and start fixing
+```
+
+### 2. SINGLE APPROACH RULE
+**Choose ONE solution path and stick to it:**
+- ✅ Pick the simplest solution first
+- ✅ Complete it fully before trying alternatives  
+- ✅ Maximum 3 attempts per approach
+- ✅ If approach fails 3 times, escalate to next level
+
+**Escalation Ladder:**
+1. **Level 1:** Simple fixes (restart, basic config)
+2. **Level 2:** Medium complexity (dependency changes, environment)  
+3. **Level 3:** Complex solutions (Docker, complete rewrites)
+
+### 3. FAILURE LEARNING SYSTEM
+**Track and learn from failures:**
+- ✅ Log what failed and the exact error message
+- ✅ Never repeat the EXACT same command that failed
+- ✅ If same error appears twice, escalate approach
+- ✅ Document why each attempt failed
+
+**Example Failure Log:**
+```
+Attempt 1: pip install -r requirements.txt
+Error: pydantic-core build failed (Python 3.13 incompatibility)
+Lesson: Don't retry full requirements.txt
+
+Attempt 2: pip install minimal deps
+Result: Success
+```
+
+### 4. TIME MANAGEMENT LIMITS
+**Strict timeouts to prevent endless loops:**
+- ✅ 5-minute maximum per approach
+- ✅ 15-minute maximum per problem
+- ✅ 3 consecutive failures = STOP and reassess
+- ✅ After timeout, document findings and ask for guidance
+
+### 5. LOOP DETECTION TRIGGERS
+**Stop immediately if you notice:**
+- Running the same command more than twice
+- Getting the same error repeatedly without changing approach
+- Spending >10 minutes on same solution
+- Making multiple small changes without testing each one
+
+### 6. SUCCESS CONFIRMATION
+**Always confirm the fix worked:**
+- ✅ Test the original problem is solved
+- ✅ Test related functionality still works
+- ✅ Document what the successful solution was
+- ✅ Note why this approach worked when others failed
+
+## 🎯 PRACTICAL EXAMPLE
+
+**Problem:** Backend server not starting
+
+**❌ Loop Behavior:**
+```bash
+pip install package1
+pip install package2  
+pip install package1 package2
+pip install --upgrade package1
+# ... endless variations
+```
+
+**✅ Anti-Loop Approach:**
+```bash
+# 1. VERIFY
+curl localhost:8000  # Confirm it's actually broken
+
+# 2. PLAN (Choose ONE approach)
+# Approach 1: Check dependencies (5 min limit)
+
+# 3. EXECUTE (Max 3 attempts)
+# Attempt 1: pip install -r requirements.txt
+# Result: Failed - Python 3.13 incompatibility
+# Attempt 2: pip install minimal subset
+# Result: Failed - same error
+# Attempt 3: Create simple version
+# Result: Success
+
+# 4. CONFIRM
+curl localhost:8000/health  # Verify fix worked
+```
+
+## 🛡️ ENFORCEMENT RULES
+
+- **NEVER** run the same command twice without changing the approach
+- **ALWAYS** test current state before making changes
+- **STOP** after 3 consecutive failures and reassess
+- **DOCUMENT** what worked for future reference
+- **ASK** for guidance if hitting time limits
+
+This protocol must be followed for ALL problem-solving tasks to prevent loops and ensure efficient resolution.
