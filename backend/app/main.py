@@ -10,7 +10,7 @@ from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
 import structlog
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, Request, Response, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
@@ -138,6 +138,27 @@ app.include_router(raise_letter_router, prefix=f"{settings.API_V1_STR}/raise-let
 app.include_router(email_router, prefix=f"{settings.API_V1_STR}/email", tags=["Email Services"])
 app.include_router(editor_router, tags=["Editor"])
 app.include_router(gusto_router, prefix=f"{settings.API_V1_STR}/gusto", tags=["Gusto Integration"])
+
+
+@app.middleware("http")
+async def check_payload_size(request: Request, call_next) -> Response:
+    """Check request payload size before processing."""
+    # Check Content-Length header for payload size
+    content_length = request.headers.get("content-length")
+    if content_length:
+        try:
+            size = int(content_length)
+            max_size = settings.MAX_FILE_SIZE  # 5MB default
+            if size > max_size:
+                return Response(
+                    content=f"Payload too large. Maximum size: {max_size} bytes",
+                    status_code=413,
+                    media_type="text/plain"
+                )
+        except ValueError:
+            pass  # Invalid content-length header, let it through
+    
+    return await call_next(request)
 
 
 @app.middleware("http")
