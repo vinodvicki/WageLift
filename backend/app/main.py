@@ -6,6 +6,7 @@ security configurations, and API routes.
 """
 
 import time
+import json
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
@@ -39,10 +40,12 @@ REQUEST_DURATION = Histogram(
     ['method', 'endpoint']
 )
 
-# Rate limiter - Configure with proper limits
+# Enhanced rate limiter with better configuration for graceful degradation
 limiter = Limiter(
     key_func=get_remote_address,
-    default_limits=[f"{settings.RATE_LIMIT_PER_MINUTE}/minute"]
+    default_limits=[f"{settings.RATE_LIMIT_PER_MINUTE}/minute"],
+    storage_uri="memory://",  # Use memory storage for better performance
+    strategy="moving-window"  # More graceful rate limiting
 )
 
 # Logger
@@ -107,13 +110,18 @@ if not settings.DEBUG:
 
 # Add CORS middleware
 if settings.BACKEND_CORS_ORIGINS:
+    # Debug logging for CORS configuration
+    logger.info(f"Configuring CORS with origins: {settings.BACKEND_CORS_ORIGINS}")
+    
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
+        allow_origins=settings.BACKEND_CORS_ORIGINS,  # Remove [str(origin) for origin in ...] since they're already strings
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
+else:
+    logger.warning("No CORS origins configured - CORS middleware not enabled")
 
 # Add compression middleware
 app.add_middleware(GZipMiddleware, minimum_size=1000)
@@ -219,20 +227,125 @@ async def add_security_headers(request: Request, call_next) -> Response:
     return response
 
 
-# Health check endpoint
+# Enhanced health check endpoint with resilience monitoring
 @app.get("/health", tags=["Health"])
-@limiter.limit("100/minute")  # Allow health checks but with reasonable limits
+@limiter.limit("200/minute")  # Higher limit for health checks to improve availability
 async def health_check(request: Request):
     """
-    Health check endpoint for load balancers and monitoring.
+    Enhanced health check endpoint for load balancers and monitoring.
+    Includes resilience and performance metrics.
     """
-    return {
+    start_time = time.time()
+    
+    health_status = {
         "status": "healthy",
         "service": settings.PROJECT_NAME,
         "version": settings.PROJECT_VERSION,
         "environment": settings.ENVIRONMENT,
         "timestamp": time.time(),
     }
+    
+    # Add performance metrics for graceful degradation monitoring
+    try:
+        # Quick database health check
+        async with async_engine.begin() as conn:
+            db_start = time.time()
+            await conn.execute(text("SELECT 1"))
+            db_time = time.time() - db_start
+            
+        health_status["database"] = {
+            "status": "healthy",
+            "response_time_ms": round(db_time * 1000, 2)
+        }
+        
+        # Overall response time
+        total_time = time.time() - start_time
+        health_status["response_time_ms"] = round(total_time * 1000, 2)
+        
+        # System load indicators
+        health_status["system"] = {
+            "load_status": "normal" if total_time < 0.1 else "degraded" if total_time < 0.5 else "stressed"
+        }
+        
+    except Exception as e:
+        logger.error("Health check database error", error=str(e))
+        health_status["database"] = {
+            "status": "degraded",
+            "error": "Connection error"
+        }
+        health_status["status"] = "degraded"
+    
+    return health_status
+
+
+# Global exception handler for improved error recovery
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """
+    Global exception handler for graceful error recovery.
+    """
+    logger.error(
+        "Unhandled exception",
+        error=str(exc),
+        path=request.url.path,
+        method=request.method,
+        exc_info=True
+    )
+    
+    # Return graceful error response instead of crashing
+    return Response(
+        content=json.dumps({
+            "error": "Internal server error",
+            "message": "The service is experiencing issues but remains operational",
+            "status": "degraded",
+            "timestamp": time.time()
+        }),
+        status_code=500,
+        media_type="application/json"
+    )
+
+
+# Enhanced request timeout middleware for better resilience
+@app.middleware("http")
+async def timeout_middleware(request: Request, call_next) -> Response:
+    """Enhanced request timeout and resilience middleware."""
+    import asyncio
+    
+    try:
+        # Set reasonable timeout for requests
+        response = await asyncio.wait_for(call_next(request), timeout=30.0)
+        return response
+    except asyncio.TimeoutError:
+        logger.warning(
+            "Request timeout",
+            path=request.url.path,
+            method=request.method
+        )
+        return Response(
+            content=json.dumps({
+                "error": "Request timeout",
+                "message": "Request took too long to process",
+                "status": "timeout"
+            }),
+            status_code=504,
+            media_type="application/json"
+        )
+    except Exception as e:
+        logger.error(
+            "Request processing error",
+            error=str(e),
+            path=request.url.path,
+            method=request.method
+        )
+        return Response(
+            content=json.dumps({
+                "error": "Processing error",
+                "message": "Request could not be processed",
+                "status": "error"
+            }),
+            status_code=500,
+            media_type="application/json"
+        )
 
 
 # Metrics endpoint (for Prometheus)
