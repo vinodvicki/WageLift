@@ -6,6 +6,30 @@
 export type LetterTone = 'professional' | 'confident' | 'collaborative' | 'assertive'
 export type LetterLength = 'concise' | 'standard' | 'detailed'
 
+export class RaiseLetterAPIError extends Error {
+  constructor(message: string, public statusCode?: number) {
+    super(message)
+    this.name = 'RaiseLetterAPIError'
+  }
+}
+
+export function getLetterToneOptions() {
+  return [
+    { id: 'professional', name: 'Professional', description: 'Formal and professional tone' },
+    { id: 'confident', name: 'Confident', description: 'Assertive and confident approach' },
+    { id: 'collaborative', name: 'Collaborative', description: 'Team-focused and collaborative' },
+    { id: 'assertive', name: 'Assertive', description: 'Direct and assertive communication' }
+  ]
+}
+
+export function getLetterLengthOptions() {
+  return [
+    { id: 'concise', name: 'Concise', description: 'Brief and to the point' },
+    { id: 'standard', name: 'Standard', description: 'Balanced length with key details' },
+    { id: 'detailed', name: 'Detailed', description: 'Comprehensive with full justification' }
+  ]
+}
+
 export interface RaiseLetterData {
   currentSalary: number
   requestedSalary: number
