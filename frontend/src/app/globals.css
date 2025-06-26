@@ -66,7 +66,7 @@
 
   /* Hero Section */
   .hero-gradient {
-    @apply bg-gradient-to-br from-indigo-500 via-purple-600 to-purple-700 bg-400 animate-gradient-shift text-white relative overflow-hidden;
+    @apply bg-gradient-to-br from-indigo-500 via-purple-600 to-purple-700 animate-gradient-shift text-white relative overflow-hidden;
   }
 
   .hero-gradient::before {
@@ -84,7 +84,7 @@
   }
 
   .step-number::after {
-    @apply content-[''] absolute w-14 h-14 border-2 border-accent-500/30 rounded-full animate-pulse-ring;
+    @apply content-[''] absolute w-14 h-14 border-2 border-accent-500/30 rounded-full animate-pulse;
   }
 
   /* Typography */
@@ -152,6 +152,47 @@
 
   .animate-scale {
     animation: scale 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Keyframe Animations */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scale {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
 
