@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/hooks/use-auth';
@@ -18,6 +19,7 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const { user, isAuthenticated } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -81,7 +83,10 @@ export default function DashboardLayout({
 
             {/* Mobile menu button */}
             <div className="sm:hidden flex items-center">
-              <button className="text-gray-400 hover:text-gray-500">
+              <button 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-gray-400 hover:text-gray-500 p-2"
+              >
                 <span className="sr-only">Open main menu</span>
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -92,8 +97,9 @@ export default function DashboardLayout({
         </div>
 
         {/* Mobile Navigation */}
-        <div className="sm:hidden">
-          <div className="pt-2 pb-3 space-y-1">
+        {mobileMenuOpen && (
+          <div className="sm:hidden">
+            <div className="pt-2 pb-3 space-y-1">
             {navigation.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -111,8 +117,9 @@ export default function DashboardLayout({
                 </Link>
               );
             })}
+            </div>
           </div>
-        </div>
+        )}
       </nav>
 
       {/* Page Content */}
